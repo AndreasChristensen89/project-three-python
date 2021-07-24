@@ -60,7 +60,7 @@ def ask_for_choices(board):
             print("Congratulations! You sunk the ship!")
             break
         else:
-            if guess_row > 5 or guess_col > 5:
+            if guess_row > 4 or guess_col > 4:
                 print("Guess is out of bounds")
             elif board[guess_row][guess_col] == "X":
                 print("This has already been guessed")
