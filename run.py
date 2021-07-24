@@ -41,10 +41,10 @@ def start_game():
 
 def ask_for_choices(board):
     attemps_left = 4
+    comp_row = randint(0, len(board) - 1)
+    comp_col = randint(0, len(board[0]) - 1)
 
     while True:
-        comp_row = randint(0, len(board) - 1)
-        comp_col = randint(0, len(board[0]) - 1)
 
         print(f"Attempts left: {attemps_left}")
         print(comp_row)
@@ -62,9 +62,7 @@ def ask_for_choices(board):
                 print("Congratulations! You sunk the ship!")
                 break
             else:
-                if guess_row > 4 or guess_col > 4:
-                    print("Guess is out of bounds")
-                elif board[guess_row][guess_col] == "X":
+                if board[int(guess_row)][int(guess_col)] == "X":
                     print("This has already been guessed")
                 else:
                     print("You missed the ship")
@@ -76,6 +74,8 @@ def validate_data(guess_row, guess_col):
     try:
         int(guess_col)
         int(guess_row)
+        if int(guess_row) > 4 or int(guess_col) > 4:
+            raise ValueError("Numbers should be between 0 and 4")
     except ValueError as e:
         print(f"Invalid data: {e}, input must be numbers")
         print("\n")
@@ -84,7 +84,7 @@ def validate_data(guess_row, guess_col):
 
 
 def update_board(board, guess_row, guess_col):
-    board[guess_row][guess_col] = "X"
+    board[int(guess_row)][int(guess_col)] = "X"
     for i in board:
         print(" ".join(i))
 
