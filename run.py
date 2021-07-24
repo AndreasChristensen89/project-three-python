@@ -50,24 +50,37 @@ def ask_for_choices(board):
         print(comp_row)
         print(comp_col)
 
-        guess_row = int(input("Guess a row: "))
-        guess_col = int(input("Guess a column: "))
+        guess_row = input("Guess a row: ")
+        guess_col = input("Guess a column: ")
+        print("\n")
 
-        if attemps_left == 0:
-            print("Game Over")
-            break
-        elif guess_row == comp_row and guess_col == comp_col:
-            print("Congratulations! You sunk the ship!")
-            break
-        else:
-            if guess_row > 4 or guess_col > 4:
-                print("Guess is out of bounds")
-            elif board[guess_row][guess_col] == "X":
-                print("This has already been guessed")
+        if validate_data(guess_row, guess_col):
+            if attemps_left == 0:
+                print("Game Over")
+                break
+            elif guess_row == comp_row and guess_col == comp_col:
+                print("Congratulations! You sunk the ship!")
+                break
             else:
-                print("You missed the ship")
-                attemps_left -= 1
-                update_board(board, guess_row, guess_col)
+                if guess_row > 4 or guess_col > 4:
+                    print("Guess is out of bounds")
+                elif board[guess_row][guess_col] == "X":
+                    print("This has already been guessed")
+                else:
+                    print("You missed the ship")
+                    attemps_left -= 1
+                    update_board(board, guess_row, guess_col)
+
+
+def validate_data(guess_row, guess_col):
+    try:
+        int(guess_col)
+        int(guess_row)
+    except ValueError as e:
+        print(f"Invalid data: {e}, input must be numbers")
+        print("\n")
+        return False
+    return True
 
 
 def update_board(board, guess_row, guess_col):
