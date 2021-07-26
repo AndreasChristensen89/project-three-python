@@ -62,23 +62,11 @@ def start_game():
     ask_for_choices(board)
 
 
-def generate_computer_ship():
+def generate_computer_ship(vertical_horizontal):
     """
     """
-    # dict_board = {
-    #     "A": [1, 2, 3, 4, 5, 6, 7, 8],
-    #     "B": [1, 2, 3, 4, 5, 6, 7, 8],
-    #     "C": [1, 2, 3, 4, 5, 6, 7, 8],
-    #     "D": [1, 2, 3, 4, 5, 6, 7, 8],
-    #     "E": [1, 2, 3, 4, 5, 6, 7, 8],
-    #     "F": [1, 2, 3, 4, 5, 6, 7, 8],
-    #     "G": [1, 2, 3, 4, 5, 6, 7, 8],
-    #     "H": [1, 2, 3, 4, 5, 6, 7, 8]
-    # }
 
-    vertical_horizontal = randint(1, 2)
-
-    ship_lenght = randint(1, 3)
+    ship_lenght = randint(2, 4)
 
     if vertical_horizontal == 1:
         row_max_letter = chr(ord('I') - ship_lenght)
@@ -98,15 +86,16 @@ def generate_computer_ship():
         for i in range(ship_lenght):
             hor_cols.append(hor_col + i)
 
-        return hor_row, hor_cols
+        return [hor_row, hor_cols]
 
 
 def ask_for_choices(board):
     """
     """
     attemps = 10
-    computer_choice = generate_computer_ship()
-    print(computer_choice)
+    verti_hori = randint(1, 2)
+    ship = generate_computer_ship(verti_hori)
+    print(ship)
 
     while True:
         print(f"Attempts left: {attemps}")
@@ -117,40 +106,54 @@ def ask_for_choices(board):
 
         print(guess_col)
 
-        print(guess_row in computer_choice[0])
-        print(int(guess_col) in computer_choice)
+        # print(guess_row in ship[0])
+        # print(int(guess_col) in ship)
+        # print(int(guess_col) in ship[1])
 
         # if validate_data(guess_row, guess_col, board):
         if attemps == 1:
             os.system('clear')
             print("Game Over")
             break
-        elif (guess_row in computer_choice[0] and
-                int(guess_col) in computer_choice):
-            os.system('clear')
-            print("Nice! You hit the ship!")
-            break
+
+        if verti_hori == 1:
+            if guess_row in ship[0] and int(guess_col) == ship[1]:
+                os.system('clear')
+                print("You hit the ship!")
+                break
+            else:
+                os.system('clear')
+                print("You missed the ship")
+                attemps -= 1
+                # update_board(board, guess_row, guess_col)
+        elif verti_hori == 2:
+            if guess_row in ship[0] and int(guess_col) in ship[1]:
+                os.system('clear')
+                print("You hit the ship!")
+                break
+            else:
+                os.system('clear')
+                print("You missed the ship")
+                attemps -= 1
+                # update_board(board, guess_row, guess_col)
+
         # else:
-        #     # if board[int(guess_row)][int(guess_col)] == "X":
-        #     #     os.system('clear')
-        #     #     print("This point has already been guessed")
-        #     #     add_board(board)
-        #     # else:
-        #     # os.system('clear')
-        #     # print("You missed the ship")
-        #     # attemps -= 1
-        #     # update_board(board, guess_row, guess_col)
+        #     if board[int(guess_row)][int(guess_col)] == "X":
+        #         os.system('clear')
+        #         print("This point has already been guessed")
+        #         add_board(board)
 
 
 def validate_data(guess_row, guess_col, board):
     """
     """
     try:
-        int(guess_col)
-        guess_row.lower()
+        test_int = isinstance(guess_col, int)
+        test_str = isinstance(guess_row, str)
+        print(test_int, test_str)
         if int(guess_col) > 9:
             raise ValueError("out of bounds")
-        elif not isinstance(guess_row, str):
+        elif not test_str or not test_int:
             raise ValueError("invalid input")
     except ValueError as e:
         os.system('clear')
@@ -191,4 +194,3 @@ def main():
 
 print("Welcome to Battleships")
 main()
-
