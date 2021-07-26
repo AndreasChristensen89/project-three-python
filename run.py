@@ -69,73 +69,64 @@ def generate_computer_ship(vertical_horizontal):
     ship_lenght = randint(2, 4)
 
     if vertical_horizontal == 1:
-        row_max_letter = chr(ord('I') - ship_lenght)
-        vert_row = chr(randint(ord('A'), ord(row_max_letter)))
+        max_letter = chr(ord('I') - ship_lenght)
+        random_row = chr(randint(ord('A'), ord(max_letter)))
         column = randint(1, 8)
 
-        vert_rows = []
+        vert_ship = {}
         for i in range(ship_lenght):
-            vert_rows.append(chr(ord(vert_row) + i))
+            key = chr(ord(random_row) + i)
+            vert_ship.update({key: column})
 
-        return [vert_rows, column]
+        return vert_ship
     elif vertical_horizontal == 2:
-        hor_row = chr(randint(ord('A'), ord('H')))
-        hor_col = randint(1, (8-ship_lenght))
+        hori_row = chr(randint(ord('A'), ord('H')))
+        hori_col = randint(1, (8-ship_lenght))
 
-        hor_cols = []
+        hori_ship = {}
         for i in range(ship_lenght):
-            hor_cols.append(hor_col + i)
+            value = hori_col + i
+            hori_ship.update({hori_row: value})
 
-        return [hor_row, hor_cols]
+        return hori_ship
 
 
 def ask_for_choices(board):
     """
     """
-    attemps = 10
-    verti_hori = randint(1, 2)
-    ship = generate_computer_ship(verti_hori)
+    attempts = 10
+    verti_or_hori = randint(1, 2)
+    ship = generate_computer_ship(verti_or_hori)
     print(ship)
 
     while True:
-        print(f"Attempts left: {attemps}")
+        print(f"Attempts left: {attempts}")
 
         guess_row = input("Guess a row: ")
         guess_col = input("Guess a column: ")
         print("\n")
 
-        print(guess_col)
-
-        # print(guess_row in ship[0])
-        # print(int(guess_col) in ship)
-        # print(int(guess_col) in ship[1])
-
-        # if validate_data(guess_row, guess_col, board):
-        if attemps == 1:
+        if attempts == 1:
             os.system('clear')
             print("Game Over")
             break
 
-        if verti_hori == 1:
-            if guess_row in ship[0] and int(guess_col) == ship[1]:
+        # if validate_data(guess_row, guess_col, board):
+        if guess_row in ship:
+            if int(ship[guess_row]) == int(guess_col):
                 os.system('clear')
                 print("You hit the ship!")
                 break
             else:
                 os.system('clear')
                 print("You missed the ship")
-                attemps -= 1
-                # update_board(board, guess_row, guess_col)
-        elif verti_hori == 2:
-            if guess_row in ship[0] and int(guess_col) in ship[1]:
-                os.system('clear')
-                print("You hit the ship!")
-                break
-            else:
-                os.system('clear')
-                print("You missed the ship")
-                attemps -= 1
-                # update_board(board, guess_row, guess_col)
+                attempts -= 1
+                update_board(board, guess_row, guess_col)
+        else:
+            os.system('clear')
+            print("You missed the ship")
+            attempts -= 1
+            update_board(board, guess_row, guess_col)
 
         # else:
         #     if board[int(guess_row)][int(guess_col)] == "X":
@@ -169,9 +160,8 @@ def update_board(board, guess_row, guess_col):
     """
     """
     for i in board:
-        if guess_row in board[i]:
-            board[i][guess_col] = "x"
-    # board[int(guess_row)][int(guess_col)] = "X"
+        if i[0] == guess_row:
+            i[int(guess_col)] = "x"
     for i in board:
         print(" ".join(i))
     print("\n")
