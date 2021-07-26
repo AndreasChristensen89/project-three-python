@@ -100,7 +100,7 @@ def ask_for_choices(board):
         print(f"Attempts left: {attemps}")
 
         guess_row = input("Guess a row: ")
-        guess_col = input("Guess a column: ")
+        guess_col = int(input("Guess a column: "))
         print("\n")
 
         if validate_data(guess_row, guess_col, board):
@@ -109,28 +109,29 @@ def ask_for_choices(board):
                 print("Game Over")
                 break
             elif (guess_row in computer_choice[0] and
-                  int(guess_col) in computer_choice[1]):
+                  int(guess_col) in computer_choice):
                 os.system('clear')
                 print("Nice! You hit the ship!")
                 break
             else:
-                if board[int(guess_row)][int(guess_col)] == "X":
-                    os.system('clear')
-                    print("This point has already been guessed")
-                    add_board(board)
-                else:
-                    os.system('clear')
-                    print("You missed the ship")
-                    attemps -= 1
-                    update_board(board, guess_row, guess_col)
+                # if board[int(guess_row)][int(guess_col)] == "X":
+                #     os.system('clear')
+                #     print("This point has already been guessed")
+                #     add_board(board)
+                # else:
+                os.system('clear')
+                print("You missed the ship")
+                attemps -= 1
+                update_board(board, guess_row, guess_col)
 
 
 def validate_data(guess_row, guess_col, board):
     try:
         int(guess_col)
+        guess_row.lower()
         if int(guess_col) > 9:
             raise ValueError("out of bounds")
-        elif not isinstance(guess_row, int):
+        elif not isinstance(guess_row, str):
             raise ValueError("invalid input")
     except ValueError as e:
         os.system('clear')
