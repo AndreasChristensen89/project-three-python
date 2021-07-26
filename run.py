@@ -88,7 +88,7 @@ def generate_computer_ship():
         for i in range(ship_lenght):
             hor_cols.append(hor_col + i)
 
-        return [hor_row, hor_cols]
+        return hor_row, hor_cols
 
 
 def ask_for_choices(board):
@@ -100,29 +100,34 @@ def ask_for_choices(board):
         print(f"Attempts left: {attemps}")
 
         guess_row = input("Guess a row: ")
-        guess_col = int(input("Guess a column: "))
+        guess_col = input("Guess a column: ")
         print("\n")
 
-        if validate_data(guess_row, guess_col, board):
-            if attemps == 1:
-                os.system('clear')
-                print("Game Over")
-                break
-            elif (guess_row in computer_choice[0] and
-                  int(guess_col) in computer_choice):
-                os.system('clear')
-                print("Nice! You hit the ship!")
-                break
-            else:
-                # if board[int(guess_row)][int(guess_col)] == "X":
-                #     os.system('clear')
-                #     print("This point has already been guessed")
-                #     add_board(board)
-                # else:
-                os.system('clear')
-                print("You missed the ship")
-                attemps -= 1
-                update_board(board, guess_row, guess_col)
+        print(guess_col)
+
+        print(guess_row in computer_choice[0])
+        print(int(guess_col) in computer_choice)
+
+        # if validate_data(guess_row, guess_col, board):
+        if attemps == 1:
+            os.system('clear')
+            print("Game Over")
+            break
+        elif (guess_row in computer_choice[0] and
+                int(guess_col) in computer_choice):
+            os.system('clear')
+            print("Nice! You hit the ship!")
+            break
+        # else:
+        #     # if board[int(guess_row)][int(guess_col)] == "X":
+        #     #     os.system('clear')
+        #     #     print("This point has already been guessed")
+        #     #     add_board(board)
+        #     # else:
+        #     # os.system('clear')
+        #     # print("You missed the ship")
+        #     # attemps -= 1
+        #     # update_board(board, guess_row, guess_col)
 
 
 def validate_data(guess_row, guess_col, board):
@@ -144,7 +149,10 @@ def validate_data(guess_row, guess_col, board):
 
 
 def update_board(board, guess_row, guess_col):
-    board[int(guess_row)][int(guess_col)] = "X"
+    for i in board:
+        if guess_row in board[i]:
+            board[i][guess_col] = "x"
+    # board[int(guess_row)][int(guess_col)] = "X"
     for i in board:
         print(" ".join(i))
     print("\n")
