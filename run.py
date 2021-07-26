@@ -3,6 +3,8 @@ import os
 
 
 def main_menu():
+    """
+    """
     while True:
         print("1: Single Player Game")
         print("2: Multiplayer Game")
@@ -20,6 +22,8 @@ def main_menu():
 
 
 def validate_choice(choice):
+    """
+    """
     try:
         int(choice)
         if int(choice) > 3 or int(choice) < 1:
@@ -34,10 +38,14 @@ def validate_choice(choice):
 
 
 def high_scores():
+    """
+    """
     print("Stagnating")
 
 
 def start_game():
+    """
+    """
     board = []
     board_rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
     board.append([' ', '1', '2', '3', '4', '5', '6', '7', '8'])
@@ -55,6 +63,8 @@ def start_game():
 
 
 def generate_computer_ship():
+    """
+    """
     # dict_board = {
     #     "A": [1, 2, 3, 4, 5, 6, 7, 8],
     #     "B": [1, 2, 3, 4, 5, 6, 7, 8],
@@ -92,6 +102,8 @@ def generate_computer_ship():
 
 
 def ask_for_choices(board):
+    """
+    """
     attemps = 10
     computer_choice = generate_computer_ship()
     print(computer_choice)
@@ -131,6 +143,8 @@ def ask_for_choices(board):
 
 
 def validate_data(guess_row, guess_col, board):
+    """
+    """
     try:
         int(guess_col)
         guess_row.lower()
@@ -149,6 +163,8 @@ def validate_data(guess_row, guess_col, board):
 
 
 def update_board(board, guess_row, guess_col):
+    """
+    """
     for i in board:
         if guess_row in board[i]:
             board[i][guess_col] = "x"
@@ -159,6 +175,8 @@ def update_board(board, guess_row, guess_col):
 
 
 def add_board(board):
+    """
+    """
     for i in board:
         print(" ".join(i))
     print("\n")
@@ -173,4 +191,4 @@ def main():
 
 print("Welcome to Battleships")
 main()
-# generate_computer_ship()
+
