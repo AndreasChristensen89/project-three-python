@@ -50,7 +50,7 @@ def start_game():
     board_rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
     board.append([' ', '1', '2', '3', '4', '5', '6', '7', '8'])
     for x in range(0, 8):
-        board.append([board_rows[x], "o", "o", "o", "o", "o", "o", "o", "o"])
+        board.append([board_rows[x], "-", "-", "-", "-", "-", "-", "-", "-"])
 
     def print_board(board):
         for i in board:
@@ -119,12 +119,10 @@ def ask_for_choices(board):
                 break
             else:
                 os.system('clear')
-                print("You missed the ship")
                 attempts -= 1
                 update_board(board, guess_row, guess_col)
         else:
             os.system('clear')
-            print("You missed the ship")
             attempts -= 1
             update_board(board, guess_row, guess_col)
 
@@ -165,6 +163,7 @@ def update_board(board, guess_row, guess_col):
     for i in board:
         print(" ".join(i))
     print("\n")
+    print("You missed the ship")
 
 
 def add_board(board):
