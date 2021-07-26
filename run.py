@@ -62,39 +62,12 @@ def start_game():
     ask_for_choices(board)
 
 
-def generate_computer_ship(vertical_horizontal):
-    """
-    """
-
-    ship_lenght = randint(2, 4)
-
-    if vertical_horizontal == 1:
-        max_letter = chr(ord('I') - ship_lenght)
-        random_row = chr(randint(ord('A'), ord(max_letter)))
-        column = randint(1, 8)
-
-        vert_ship = {}
-        for i in range(ship_lenght):
-            key = chr(ord(random_row) + i)
-            vert_ship.update({key: column})
-
-        return vert_ship
-    elif vertical_horizontal == 2:
-        hori_row = chr(randint(ord('A'), ord('H')))
-        hori_col = randint(1, (8-ship_lenght))
-
-        hori_ship = {}
-        for i in range(ship_lenght):
-            value = hori_col + i
-            hori_ship.update({hori_row: value})
-
-        return hori_ship
-
-
 def ask_for_choices(board):
     """
     """
     attempts = 10
+
+    # Generating computer ship
     verti_or_hori = randint(1, 2)
     ship = generate_computer_ship(verti_or_hori)
     print(ship)
@@ -131,6 +104,35 @@ def ask_for_choices(board):
         #         os.system('clear')
         #         print("This point has already been guessed")
         #         add_board(board)
+
+
+def generate_computer_ship(vertical_horizontal):
+    """
+    """
+
+    ship_lenght = randint(2, 4)
+
+    if vertical_horizontal == 1:
+        max_letter = chr(ord('I') - ship_lenght)
+        random_row = chr(randint(ord('A'), ord(max_letter)))
+        column = randint(1, 8)
+
+        vert_ship = {}
+        for i in range(ship_lenght):
+            key = chr(ord(random_row) + i)
+            vert_ship.update({key: column})
+
+        return vert_ship
+    elif vertical_horizontal == 2:
+        hori_row = chr(randint(ord('A'), ord('H')))
+        hori_col = randint(1, (8-ship_lenght))
+
+        hori_ship = {}
+        for i in range(ship_lenght):
+            value = hori_col + i
+            hori_ship.update({hori_row: value})
+
+        return hori_ship
 
 
 def validate_data(guess_row, guess_col, board):
