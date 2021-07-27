@@ -68,8 +68,7 @@ def ask_for_choices(board):
     attempts = 10
 
     # Generating computer ship
-    verti_or_hori = randint(1, 2)
-    ship = generate_computer_ship(verti_or_hori)
+    ship = generate_computer_ship(1)
     hit_count = []
 
     while True:
@@ -105,10 +104,10 @@ def ask_for_choices(board):
             update_board(board, guess, "X")
 
 
-def generate_computer_ship(vertical_horizontal):
+def generate_computer_ship(number_of_ships):
     """
     """
-
+    vertical_horizontal = randint(1, 2)
     ship_lenght = randint(2, 4)
 
     if vertical_horizontal == 1:
@@ -186,4 +185,12 @@ def main():
 
 
 print("Welcome to Battleships")
-main()
+# main()
+list_one = ["A1", "A2", "A3"]
+list_two = ["F5", "G5", "H5"]
+list_three = ["C1", "D1", "E1"]
+
+guess_list = ["A1", "A2", "F5", "A3", "G5", "H5", "C1", "D1", "E1"]
+print(all(item in guess_list for item in list_one))
+# True
+
