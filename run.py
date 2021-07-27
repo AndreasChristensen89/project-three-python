@@ -68,7 +68,8 @@ def ask_for_choices(board):
     attempts = 10
 
     # Generating computer ship
-    ship = generate_computer_ship(1)
+    ship = generate_computer_ship(2)
+    print(ship)
     hit_count = []
 
     while True:
@@ -84,7 +85,7 @@ def ask_for_choices(board):
 
         guess = input("Guess a row and a number: (e.g. D8) \n")
 
-        # if validate_data(guess_row, guess_col, board):
+        # if validate_data(guess, board):
         number_one = int(ord(guess[:1].lower())-96)
         number_two = int(guess[1:2])
 
@@ -108,36 +109,53 @@ def generate_computer_ship(number_of_ships):
     """
     """
     vertical_horizontal = randint(1, 2)
-    ship_lenght = randint(2, 4)
+
+    ship_points = []
+
+    ship_count = 0
 
     if vertical_horizontal == 1:
-        max_letter = chr(ord('I') - ship_lenght)
-        random_row = chr(randint(ord('A'), ord(max_letter)))
-        column = randint(1, 8)
+        while True:
+            ship_lenght = randint(2, 4)
+            max_letter = chr(ord('I') - ship_lenght)
+            random_row = chr(randint(ord('A'), ord(max_letter)))
+            char_two = str(randint(1, 8))
 
-        vert_ship = []
-        for i in range(ship_lenght):
-            char_one = chr(ord(random_row) + i)
-            char_two = str(column)
-            vert_ship.append(char_one+char_two)
-        return vert_ship
+            vert_ship = []
+            for i in range(ship_lenght):
+                char_one = chr(ord(random_row) + i)
+                vert_ship.append(char_one+char_two)
+
+            if not any(item in ship_points for item in vert_ship):
+                for i in vert_ship:
+                    ship_points.append(i)
+                ship_count += 1
+                if ship_count == number_of_ships:
+                    break
     elif vertical_horizontal == 2:
-        hori_row = chr(randint(ord('A'), ord('H')))
-        hori_col = randint(1, (8-ship_lenght))
+        while True:
+            ship_lenght = randint(2, 4)
+            char_one = chr(randint(ord('A'), ord('H')))
+            hori_col = randint(1, (8-ship_lenght))
 
-        hori_ship = []
-        for i in range(ship_lenght):
-            char_one = hori_row
-            char_two = str(hori_col + i)
-            hori_ship.append(char_one+char_two)
-        return hori_ship
+            hori_ship = []
+            for i in range(ship_lenght):
+                char_two = str(hori_col + i)
+                hori_ship.append(char_one+char_two)
+            if not any(item in ship_points for item in hori_ship):
+                for i in hori_ship:
+                    ship_points.append(i)
+                ship_count += 1
+                if ship_count == number_of_ships:
+                    break
+    return ship_points
 
 
-def validate_data(guess_row, guess_col, board):
+def validate_data(guess, board):
     """
     """
     try:
-        test_int = isinstance(guess_col, int)
+        int(guess[1:2])
         test_str = isinstance(guess_row, str)
         print(test_int, test_str)
         if int(guess_col) > 9:
@@ -185,12 +203,11 @@ def main():
 
 
 print("Welcome to Battleships")
-# main()
-list_one = ["A1", "A2", "A3"]
-list_two = ["F5", "G5", "H5"]
-list_three = ["C1", "D1", "E1"]
+main()
+# list_one = ["A1", "A2", "A3"]
+# list_two = ["F5", "G5", "H5"]
+# list_three = ["C1", "D1", "E1"]
 
-guess_list = ["A1", "A2", "F5", "A3", "G5", "H5", "C1", "D1", "E1"]
-print(all(item in guess_list for item in list_one))
-# True
-
+# guess_list = ["A1", "A2", "F5", "A3", "G5", "H5", "C1", "D1", "E1"]
+# print(all(item in guess_list for item in list_one))
+# # True
