@@ -6,9 +6,9 @@ def main_menu():
     """
     """
     while True:
-        print("1: Single Player Game")
-        print("2: Multiplayer Game")
-        print("3: Rules\n")
+        os.system('clear')
+        print("1: Start game")
+        print("2: Rules")
         user_choice = input("Enter choice: ")
 
         if(validate_choice(user_choice)):
@@ -16,7 +16,7 @@ def main_menu():
                 os.system('clear')
                 start_game()
             elif int(user_choice) == 2:
-                high_scores()
+                rules()
                 os.system('clear')
             break
 
@@ -26,7 +26,7 @@ def validate_choice(choice):
     """
     try:
         int(choice)
-        if int(choice) > 3 or int(choice) < 1:
+        if int(choice) > 2 or int(choice) < 1:
             raise ValueError("Choice not valid")
     except ValueError as e:
         os.system('clear')
@@ -37,10 +37,24 @@ def validate_choice(choice):
     return True
 
 
-def high_scores():
+def rules():
     """
     """
-    print("Stagnating")
+    os.system('clear')
+    print("The rules of Battleship: \n")
+    print("You have limited attempts to sink the ships.")
+    print("You decide how many ships there will be,")
+    print("but you don't know how big they are or where they are placed.")
+    print("The maximum size is 4, and the minimum is 2.\n")
+    print("Enter your coordinates to strike the point:")
+    print("- One letter between A-H")
+    print("- One number between 1-9")
+    print("- For example: C4\n")
+    print("If you miss the point will be marked with an 'X'.")
+    print("If you hit a ship the point will be marked with a 'O'.")
+    print("You need to hit all points of a ship in order to sink it.\n")
+    print(input("Press any key to return to the main menu"))
+    main_menu()
 
 
 def start_game():
@@ -204,10 +218,3 @@ def main():
 
 print("Welcome to Battleships")
 main()
-# list_one = ["A1", "A2", "A3"]
-# list_two = ["F5", "G5", "H5"]
-# list_three = ["C1", "D1", "E1"]
-
-# guess_list = ["A1", "A2", "F5", "A3", "G5", "H5", "C1", "D1", "E1"]
-# print(all(item in guess_list for item in list_one))
-# # True
