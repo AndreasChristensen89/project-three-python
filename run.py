@@ -85,24 +85,24 @@ def ask_for_choices(board):
 
         guess = input("Guess a row and a number: (e.g. D8) \n")
 
-        # if validate_data(guess, board):
-        number_one = int(ord(guess[:1].lower())-96)
-        number_two = int(guess[1:2])
+        if validate_data(guess, board):
+            number_one = int(ord(guess[:1].lower())-96)
+            print(number_one)
+            number_two = int(guess[1:2])
 
-        if guess in ship:
-            os.system('clear')
-            print("You hit the ship!")
-            hit_count.append(guess)
-            # print(hit_count)
-            update_board(board, guess, "O")
-        elif board[number_one][number_two] == "X":
-            os.system('clear')
-            add_board(board)
-            print("This point has already been guessed")
-        else:
-            os.system('clear')
-            attempts -= 1
-            update_board(board, guess, "X")
+            if guess in ship:
+                os.system('clear')
+                hit_count.append(guess)
+                # print(hit_count)
+                update_board(board, guess, "O")
+            elif board[number_one][number_two] == "X":
+                os.system('clear')
+                add_board(board)
+                print("This point has already been guessed")
+            else:
+                os.system('clear')
+                attempts -= 1
+                update_board(board, guess, "X")
 
 
 def generate_computer_ship(number_of_ships):
@@ -156,15 +156,15 @@ def validate_data(guess, board):
     """
     try:
         int(guess[1:2])
-        test_str = isinstance(guess_row, str)
-        print(test_int, test_str)
-        if int(guess_col) > 9:
+        test_str = isinstance(guess[:1], str)
+        test_len = len(guess)
+        if int(guess[1:2]) > 8 or int(ord(guess[:1].lower())-96) > 8:
             raise ValueError("out of bounds")
-        elif not test_str or not test_int:
+        elif not test_str or not test_len == 2:
             raise ValueError("invalid input")
     except ValueError as e:
         os.system('clear')
-        print(f"Invalid data: {e}, row must be letter, column must be number")
+        print(f"Error: {e}, must be letter and number within range")
         print(input("Press any key to continue"))
         os.system('clear')
         add_board(board)
