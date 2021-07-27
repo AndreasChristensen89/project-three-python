@@ -67,37 +67,38 @@ def ask_for_choices(board):
     """
     attempts = 10
 
-    hit_count = []
-
     # Generating computer ship
     verti_or_hori = randint(1, 2)
     ship = generate_computer_ship(verti_or_hori)
-    print(ship)
+    hit_count = []
 
     while True:
-        print(f"Attempts left: {attempts}")
-
-        guess = input("Guess a row and a number: \n")
-
         if attempts == 1:
             os.system('clear')
             print("Game Over")
             break
-        elif hit_count == ship:
+        elif sorted(hit_count) == sorted(ship):
             os.system('clear')
             print("Congratulations! You sank the battleship")
+            break
+        print(f"Attempts left: {attempts}")
+
+        guess = input("Guess a row and a number: (e.g. D8) \n")
 
         # if validate_data(guess_row, guess_col, board):
+        number_one = int(ord(guess[:1].lower())-96)
+        number_two = int(guess[1:2])
+
         if guess in ship:
             os.system('clear')
             print("You hit the ship!")
             hit_count.append(guess)
-            print(hit_count)
+            # print(hit_count)
             update_board(board, guess, "O")
-        elif board[int(ord(guess[:1].lower())-96)][int(guess[1:2])] == "X":
+        elif board[number_one][number_two] == "X":
             os.system('clear')
-            print("This point has already been guessed")
             add_board(board)
+            print("This point has already been guessed")
         else:
             os.system('clear')
             attempts -= 1
@@ -186,4 +187,3 @@ def main():
 
 print("Welcome to Battleships")
 main()
-
