@@ -90,10 +90,10 @@ def start_game(difficulty_choice):
 
     ship = generate_computer_ship(difficulty_choice)
 
-    ask_for_choices(board, ship)
+    ask_for_choices(board, ship, difficulty_choice)
 
 
-def ask_for_choices(board, ship):
+def ask_for_choices(board, ship, difficulty_choice):
     """
     Attempts variable is created, decreass with loss and gameover if 0.
     Hit count list is created, right guesses (coordinates) are added,
@@ -113,7 +113,7 @@ def ask_for_choices(board, ship):
             break
         elif sorted(hit_count) == sorted(ship):
             os.system('clear')
-            win_game()
+            win_game(attempts, difficulty_choice)
             break
         print(f"Attempts left: {attempts}")
 
@@ -246,7 +246,7 @@ def add_board(board):
     print("\n")
 
 
-def win_game():
+def win_game(attempts, difficulty_choice):
     """
     """
     while True:
@@ -258,15 +258,15 @@ def win_game():
 
         if(validate_choice(choice)):
             if choice == "1":
-                
-                register_high_score()
+                os.system('clear')
+                register_high_score(attempts, difficulty_choice)
             elif choice == "2":
                 os.system('clear')
                 main_menu()
             break
 
 
-def register_high_score():
+def register_high_score(attempts, difficulty_choice):
     print("To be defined")
 
 
