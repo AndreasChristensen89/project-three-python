@@ -1,5 +1,6 @@
 from random import randint
 import os
+from operator import itemgetter
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -26,9 +27,9 @@ def main_menu():
         print("1: Start game")
         print("2: Rules")
         print("3: High scores")
-        user_choice = input("Enter choice: ")
+        user_choice = input("Enter choice: \n")
 
-        if(validate_choice(user_choice)):
+        if(validate_choice(user_choice, 3)):
             if user_choice == "1":
                 os.system('clear')
                 set_difficulty()
@@ -47,24 +48,24 @@ def set_difficulty():
         print("1: One ship")
         print("2: Two ships")
         print("3: Three ships")
-        difficulty_choice = input("Enter choice: ")
+        difficulty_choice = input("Enter choice: \n")
 
-        if(validate_choice(difficulty_choice)):
+        if(validate_choice(difficulty_choice, 3)):
             start_game(int(difficulty_choice))
             break
 
 
-def validate_choice(choice):
+def validate_choice(choice, num_of_choices):
     """
     """
     try:
         int(choice)
-        if int(choice) > 3 or int(choice) < 1:
+        if int(choice) > num_of_choices or int(choice) < 1:
             raise ValueError("Choice not valid")
     except ValueError as e:
         os.system('clear')
         print(f"Invalid data: {e}, input must be numbers within range")
-        print(input("Press any key to continue"))
+        print(input("Press any key to continue\n"))
         os.system('clear')
         return False
     return True
@@ -86,37 +87,36 @@ def rules():
     print("If you miss the point will be marked with an 'X'.")
     print("If you hit a ship the point will be marked with a 'O'.")
     print("You need to hit all points of a ship in order to sink it.\n")
-    print(input("Press 'Enter' to return to the main menu"))
+    print(input("Press 'Enter' to return to the main menu\n"))
     main_menu()
 
 
 def show_high_scores():
     """
     """
+    os.system('clear')
     while True:
         print("Select a list to view")
         print("1: One ship")
         print("2: Two ships")
         print("3: Three ships")
         print("4: Return to main menu")
-        list_choice = input("Enter choice: ")
+        list_choice = input("Enter choice: \n")
 
-        if(validate_choice(list_choice)):
-            if list_choice == "1":
+        if(validate_choice(list_choice, 4)):
+            if list_choice == "4":
+                main_menu()
+            else:
                 os.system('clear')
-                dif_one = SHEET.worksheet('Difficulty 1')
-                data = dif_one.get_all_values()
-                print(data)
-            elif list_choice == "2":
-                os.system('clear')
-                dif_two = SHEET.worksheet('Difficulty 2')
+                dif_two = SHEET.worksheet(f'Difficulty {list_choice}')
                 data = dif_two.get_all_values()
-                print(data)
-            elif list_choice == "3":
-                os.system('clear')
-                dif_three = SHEET.worksheet('Difficulty 3')
-                data = dif_three.get_all_values()
-                print(data)
+                data_sorted = sorted(data, key=itemgetter(1))
+                print(data_sorted[-1][0]+"         " + data_sorted[-1][1]+"\n")
+                for i in data_sorted[0:-1]:
+                    space = " " * (13 - len(i[0]))
+                    print(space.join(i))
+            print(input("\nPress 'Enter', or any key, to return\n"))
+            main_menu()
             break
 
 
@@ -307,9 +307,9 @@ def win_game(attempts, difficulty_choice):
         print("1: Register your score")
         print("2: Return to main menu")
         print("3: Exit game")
-        choice = input("Enter choice: ")
+        choice = input("Enter choice: \n")
 
-        if(validate_choice(choice)):
+        if(validate_choice(choice, 3)):
             if choice == "1":
                 os.system('clear')
                 register_high_score(attempts, difficulty_choice)
@@ -322,11 +322,17 @@ def win_game(attempts, difficulty_choice):
 def register_high_score(attempts, difficulty_choice):
     """
     Asks user to enter name
+    Checks if length of name is within 1-10 characters
     Calls update function and passes name, attempts, and difficulty choice
     """
-    name = input("Enter your name: ")
-    os.system('clear')
-    update_high_score(name, attempts, difficulty_choice)
+    while True:
+        name = input("Enter your name: (Max 10 letters) \n")
+        os.system('clear')
+        if len(name) <= 10 and len(name) > 0:
+            update_high_score(name, attempts, difficulty_choice)
+            break
+        else:
+            print("Name must be between 1-10 characters")
 
 
 def update_high_score(name, attempts, difficulty_choice):
@@ -335,7 +341,7 @@ def update_high_score(name, attempts, difficulty_choice):
     Updates worksheet, by creating list to add to new row with the parameters
     """
     print("Updating highscore list...")
-    list_to_append = [name, 10-attempts, difficulty_choice]
+    list_to_append = [name, 10-attempts]
     diff_worksheet = SHEET.worksheet(f'Difficulty {difficulty_choice}')
     diff_worksheet.append_row(list_to_append)
     print("List updated successfully\n")
@@ -348,5 +354,5 @@ def main():
     main_menu()
 
 
-# print("Welcome to Battleships")
-# main()
+print("Welcome to Battleships")
+main()
