@@ -120,19 +120,20 @@ def ask_for_choices(board, ship):
         guess = input("Guess a row and a number: (e.g. D8) \n")
 
         if validate_data(guess, board):
-            number_one = int(ord(guess[:1].lower())-96)
-            print(number_one)
-            number_two = int(guess[1:2])
+            char_one = int(ord(guess[:1].lower())-96)
+            char_two = int(guess[1:2])
+            coordinate = board[char_one][char_two]
 
-            if guess in ship:
-                os.system('clear')
-                hit_count.append(guess)
-                # print(hit_count)
-                update_board(board, guess, "O")
-            elif board[number_one][number_two] == "X":
+            if coordinate == "X" or coordinate == "O":
                 os.system('clear')
                 add_board(board)
                 print("This point has already been guessed")
+            elif guess.upper() in ship:
+                os.system('clear')
+                hit_count.append(guess.upper())
+                update_board(board, guess, "O")
+                print(hit_count)
+                print(ship)
             else:
                 os.system('clear')
                 attempts -= 1
@@ -223,7 +224,7 @@ def update_board(board, guess, mark):
     Board is printed with mark value added, and message of miss/hit
     """
     for i in board:
-        if i[0] == guess[:1]:
+        if i[0] == guess[:1].upper():
             i[int(guess[1:2])] = f"{mark}"
     for i in board:
         print(" ".join(i))
