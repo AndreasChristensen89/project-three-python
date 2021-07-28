@@ -44,10 +44,10 @@ def main_menu():
 def set_difficulty():
     while True:
         os.system('clear')
-        print("Set the difficulty")
+        print("Set the difficulty\n")
         print("1: One ship")
         print("2: Two ships")
-        print("3: Three ships")
+        print("3: Three ships\n")
         difficulty_choice = input("Enter choice: \n")
 
         if(validate_choice(difficulty_choice, 3)):
@@ -345,6 +345,18 @@ def update_high_score(name, attempts, difficulty_choice):
     diff_worksheet = SHEET.worksheet(f'Difficulty {difficulty_choice}')
     diff_worksheet.append_row(list_to_append)
     print("List updated successfully\n")
+
+    while True:
+        print("1: Return to main menu")
+        print("2: Exit")
+        choice = input("Enter choice: \n")
+
+        if validate_choice(choice, 2):
+            if choice == "1":
+                os.system('clear')
+                main_menu()
+            elif choice == "2":
+                break
 
 
 def main():
