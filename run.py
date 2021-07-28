@@ -27,9 +27,10 @@ def main_menu():
         print("1: Start game")
         print("2: Rules")
         print("3: High scores")
+        print("4: Exit game\n")
         user_choice = input("Enter choice: \n")
 
-        if(validate_choice(user_choice, 3)):
+        if(validate_choice(user_choice, 4)):
             if user_choice == "1":
                 os.system('clear')
                 set_difficulty()
@@ -38,6 +39,9 @@ def main_menu():
                 os.system('clear')
             elif user_choice == "3":
                 show_high_scores()
+            elif user_choice == "4":
+                os.system('clear')
+                print("Ciao")
             break
 
 
@@ -96,16 +100,17 @@ def show_high_scores():
     """
     os.system('clear')
     while True:
-        print("Select a list to view")
+        print("Select a list to view\n")
         print("1: One ship")
         print("2: Two ships")
         print("3: Three ships")
-        print("4: Return to main menu")
+        print("4: Return to main menu\n")
         list_choice = input("Enter choice: \n")
 
         if(validate_choice(list_choice, 4)):
             if list_choice == "4":
                 main_menu()
+                break
             else:
                 os.system('clear')
                 dif_two = SHEET.worksheet(f'Difficulty {list_choice}')
@@ -115,9 +120,9 @@ def show_high_scores():
                 for i in data_sorted[0:-1]:
                     space = " " * (13 - len(i[0]))
                     print(space.join(i))
-            print(input("\nPress 'Enter', or any key, to return\n"))
-            main_menu()
-            break
+                print(input("\nPress 'Enter', or any key, to return\n"))
+                main_menu()
+                break
 
 
 def start_game(difficulty_choice):
@@ -144,7 +149,7 @@ def start_game(difficulty_choice):
 
 def ask_for_choices(board, ship, difficulty_choice):
     """
-    Attempts variable is created, decreass with loss and gameover if 0.
+    Attempts variable is created, decreases with loss and gameover if 0.
     Hit count list is created, right guesses (coordinates) are added,
     if hit count == ship list then win.
     Asks for input, validates data via validate_data(), checks for outcome.
@@ -156,9 +161,11 @@ def ask_for_choices(board, ship, difficulty_choice):
     hit_count = []
 
     while True:
-        if attempts == 1:
+        if attempts == 0:
             os.system('clear')
-            print("Game Over")
+            print("Game Over\n")
+            print(input("Press 'Enter', or any key, to return to the menu"))
+            main_menu()
             break
         elif sorted(hit_count) == sorted(ship):
             os.system('clear')
@@ -193,8 +200,8 @@ def generate_computer_ship(number_of_ships):
     """
     Returns a list with ship coordinates.
     Uses while loops: adds ships of random size and random vertical/horizontal.
-    Calculates max letter and max number for verti/horiz ship.
-    Matches new ships with return list to avoid overlaps/duplicates
+    Calculates max letter and max number for vertical/horizontal ship.
+    Checks new ships with return list to avoid overlaps/duplicate coordinates.
     While loop stops when added ships == number of ships requested
     """
 
@@ -313,9 +320,12 @@ def win_game(attempts, difficulty_choice):
             if choice == "1":
                 os.system('clear')
                 register_high_score(attempts, difficulty_choice)
+                break
             elif choice == "2":
                 os.system('clear')
                 main_menu()
+            elif choice == "3":
+                break
             break
 
 
