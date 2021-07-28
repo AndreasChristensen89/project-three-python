@@ -14,11 +14,24 @@ def main_menu():
         if(validate_choice(user_choice)):
             if int(user_choice) == 1:
                 os.system('clear')
-                start_game()
+                set_difficulty()
             elif int(user_choice) == 2:
                 rules()
                 os.system('clear')
             break
+
+
+def set_difficulty():
+    while True:
+        os.system('clear')
+        print("Set the difficulty")
+        print("1: One ship")
+        print("2: Two ships")
+        print("3: Three ships")
+        difficulty_choice = int(input("Enter choice: "))
+
+        if(validate_choice(difficulty_choice)):
+            start_game(difficulty_choice)
 
 
 def validate_choice(choice):
@@ -26,7 +39,7 @@ def validate_choice(choice):
     """
     try:
         int(choice)
-        if int(choice) > 2 or int(choice) < 1:
+        if int(choice) > 3 or int(choice) < 1:
             raise ValueError("Choice not valid")
     except ValueError as e:
         os.system('clear')
@@ -53,36 +66,42 @@ def rules():
     print("If you miss the point will be marked with an 'X'.")
     print("If you hit a ship the point will be marked with a 'O'.")
     print("You need to hit all points of a ship in order to sink it.\n")
-    print(input("Press any key to return to the main menu"))
+    print(input("Press 'Enter' to return to the main menu"))
     main_menu()
 
 
-def start_game():
+def start_game(difficulty_choice):
     """
+    Construct board with initial number-list, 1st is blank for corner value.
+    Followed by lists that take increasing letters as first index (rows).
+    Board is passed and printed via add_board().
+    Ships are generated, difficulty level passed to know number of ships.
+    Ask_for_choices() is called, board and ships generated are passed.
     """
+    os.system('clear')
     board = []
-    board_rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-    board.append([' ', '1', '2', '3', '4', '5', '6', '7', '8'])
-    for x in range(0, 8):
-        board.append([board_rows[x], "-", "-", "-", "-", "-", "-", "-", "-"])
+    board_rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+    board.append([' ', '1', '2', '3', '4', '5', '6', '7'])
+    for x in range(0, 7):
+        board.append([board_rows[x], "-", "-", "-", "-", "-", "-", "-"])
 
-    def print_board(board):
-        for i in board:
-            print(" ".join(i))
+    add_board(board)
 
-    print_board(board)
-    print("\n")
+    ship = generate_computer_ship(difficulty_choice)
 
-    ask_for_choices(board)
+    ask_for_choices(board, ship)
 
 
-def ask_for_choices(board):
+def ask_for_choices(board, ship):
     """
+    Attempts variable is created, decreass with loss and gameover if 0.
+    Hit count list is created, right guesses (coordinates) are added,
+    if hit count == ship list then win.
+    Asks for input, validates data via validate_data(), checks for outcome.
+    Right guess update board with 'O', wrong with 'X', error if repeat guess.
     """
     attempts = 10
 
-    # Generating computer ship
-    ship = generate_computer_ship(2)
     print(ship)
     hit_count = []
 
@@ -93,7 +112,7 @@ def ask_for_choices(board):
             break
         elif sorted(hit_count) == sorted(ship):
             os.system('clear')
-            print("Congratulations! You sank the battleship")
+            print("Congratulations! You sank all the battleships")
             break
         print(f"Attempts left: {attempts}")
 
@@ -121,58 +140,68 @@ def ask_for_choices(board):
 
 def generate_computer_ship(number_of_ships):
     """
+    Returns a list with ship coordinates.
+    Uses while loops: adds ships of random size and random vertical/horizontal.
+    Calculates max letter and max number for verti/horiz ship.
+    Matches new ships with return list to avoid overlaps/duplicates
+    While loop stops when added ships == number of ships requested
     """
-    vertical_horizontal = randint(1, 2)
 
     ship_points = []
 
     ship_count = 0
 
-    if vertical_horizontal == 1:
-        while True:
-            ship_lenght = randint(2, 4)
-            max_letter = chr(ord('I') - ship_lenght)
-            random_row = chr(randint(ord('A'), ord(max_letter)))
-            char_two = str(randint(1, 8))
+    while True:
+        vertical_horizontal = randint(1, 2)
+        if vertical_horizontal == 1:
+            while True:
+                ship_lenght = randint(2, 4)
+                max_letter = chr(ord('H') - ship_lenght)
+                random_row = chr(randint(ord('A'), ord(max_letter)))
+                char_two = str(randint(1, 7))
 
-            vert_ship = []
-            for i in range(ship_lenght):
-                char_one = chr(ord(random_row) + i)
-                vert_ship.append(char_one+char_two)
+                vert_ship = []
+                for i in range(ship_lenght):
+                    char_one = chr(ord(random_row) + i)
+                    vert_ship.append(char_one+char_two)
 
-            if not any(item in ship_points for item in vert_ship):
-                for i in vert_ship:
-                    ship_points.append(i)
-                ship_count += 1
-                if ship_count == number_of_ships:
+                if not any(item in ship_points for item in vert_ship):
+                    for i in vert_ship:
+                        ship_points.append(i)
+                    ship_count += 1
                     break
-    elif vertical_horizontal == 2:
-        while True:
-            ship_lenght = randint(2, 4)
-            char_one = chr(randint(ord('A'), ord('H')))
-            hori_col = randint(1, (8-ship_lenght))
+        elif vertical_horizontal == 2:
+            while True:
+                ship_lenght = randint(2, 4)
+                char_one = chr(randint(ord('A'), ord('G')))
+                hori_col = randint(1, (7-ship_lenght))
 
-            hori_ship = []
-            for i in range(ship_lenght):
-                char_two = str(hori_col + i)
-                hori_ship.append(char_one+char_two)
-            if not any(item in ship_points for item in hori_ship):
-                for i in hori_ship:
-                    ship_points.append(i)
-                ship_count += 1
-                if ship_count == number_of_ships:
+                hori_ship = []
+                for i in range(ship_lenght):
+                    char_two = str(hori_col + i)
+                    hori_ship.append(char_one+char_two)
+                if not any(item in ship_points for item in hori_ship):
+                    for i in hori_ship:
+                        ship_points.append(i)
+                    ship_count += 1
                     break
+        if ship_count == number_of_ships:
+            break
     return ship_points
 
 
 def validate_data(guess, board):
     """
+    Attemps to convert second char of input to an int,
+    tests if first char is a string, and tests length.
+    Validates range of letter and number
+    Raises valueerror, and reprints the board as it was before error
     """
     try:
         int(guess[1:2])
         test_str = isinstance(guess[:1], str)
         test_len = len(guess)
-        if int(guess[1:2]) > 8 or int(ord(guess[:1].lower())-96) > 8:
+        if int(guess[1:2]) > 7 or int(ord(guess[:1].lower())-96) > 7:
             raise ValueError("out of bounds")
         elif not test_str or not test_len == 2:
             raise ValueError("invalid input")
@@ -188,6 +217,9 @@ def validate_data(guess, board):
 
 def update_board(board, guess, mark):
     """
+    Uses first char of player guess to find the right list,
+    then uses second char to locate right index to change to mark-parameter.
+    Board is printed with mark value added, and message of miss/hit
     """
     for i in board:
         if i[0] == guess[:1]:
@@ -203,6 +235,9 @@ def update_board(board, guess, mark):
 
 def add_board(board):
     """
+    Prints out current board. Board defined in start_game().
+    Not defined here in order to be able to reprint current board,
+    which will print after error messages.
     """
     for i in board:
         print(" ".join(i))
