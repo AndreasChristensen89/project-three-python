@@ -12,10 +12,10 @@ def main_menu():
         user_choice = input("Enter choice: ")
 
         if(validate_choice(user_choice)):
-            if int(user_choice) == 1:
+            if user_choice == "1":
                 os.system('clear')
                 set_difficulty()
-            elif int(user_choice) == 2:
+            elif user_choice == "2":
                 rules()
                 os.system('clear')
             break
@@ -113,7 +113,7 @@ def ask_for_choices(board, ship):
             break
         elif sorted(hit_count) == sorted(ship):
             os.system('clear')
-            print("Congratulations! You sank all the battleships")
+            win_game()
             break
         print(f"Attempts left: {attempts}")
 
@@ -244,6 +244,30 @@ def add_board(board):
     for i in board:
         print(" ".join(i))
     print("\n")
+
+
+def win_game():
+    """
+    """
+    while True:
+        print("Congratulations! You sank all the battleships\n")
+        print("1: Register your score")
+        print("2: Return to main menu")
+        print("3: Exit game")
+        choice = input("Enter choice: ")
+
+        if(validate_choice(choice)):
+            if choice == "1":
+                
+                register_high_score()
+            elif choice == "2":
+                os.system('clear')
+                main_menu()
+            break
+
+
+def register_high_score():
+    print("To be defined")
 
 
 def main():
