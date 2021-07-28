@@ -34,15 +34,18 @@ def main_menu():
             if user_choice == "1":
                 os.system('clear')
                 set_difficulty()
+                break
             elif user_choice == "2":
                 rules()
                 os.system('clear')
+                break
             elif user_choice == "3":
                 show_high_scores()
+                break
             elif user_choice == "4":
                 os.system('clear')
                 print("Ciao")
-            break
+                break
 
 
 def set_difficulty():
@@ -164,8 +167,7 @@ def ask_for_choices(board, ship, difficulty_choice):
         if attempts == 0:
             os.system('clear')
             print("Game Over\n")
-            print(input("Press 'Enter', or any key, to return to the menu"))
-            main_menu()
+            end_of_game()
             break
         elif sorted(hit_count) == sorted(ship):
             os.system('clear')
@@ -294,8 +296,9 @@ def update_board(board, guess, mark):
 def add_board(board):
     """
     Prints out current board. Board defined in start_game().
-    Not defined here in order to be able to reprint current board,
-    which will print after error messages.
+    For loop prints out all items in list separated by " " using join().
+    Board not defined here in order to be able to reprint current board,
+    which is printed after error messages.
     """
     for i in board:
         print(" ".join(i))
@@ -313,7 +316,7 @@ def win_game(attempts, difficulty_choice):
         print("Congratulations! You sank all the battleships\n")
         print("1: Register your score")
         print("2: Return to main menu")
-        print("3: Exit game")
+        print("3: Exit game\n")
         choice = input("Enter choice: \n")
 
         if(validate_choice(choice, 3)):
@@ -324,6 +327,7 @@ def win_game(attempts, difficulty_choice):
             elif choice == "2":
                 os.system('clear')
                 main_menu()
+                break
             elif choice == "3":
                 break
             break
@@ -355,10 +359,13 @@ def update_high_score(name, attempts, difficulty_choice):
     diff_worksheet = SHEET.worksheet(f'Difficulty {difficulty_choice}')
     diff_worksheet.append_row(list_to_append)
     print("List updated successfully\n")
+    end_of_game()
 
+
+def end_of_game():
     while True:
         print("1: Return to main menu")
-        print("2: Exit")
+        print("2: Exit\n")
         choice = input("Enter choice: \n")
 
         if validate_choice(choice, 2):
@@ -376,5 +383,5 @@ def main():
     main_menu()
 
 
-print("Welcome to Battleships")
+print("Welcome to Battleships\n")
 main()
