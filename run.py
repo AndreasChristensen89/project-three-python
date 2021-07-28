@@ -13,7 +13,7 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Battleship Highscores')
-# dif_one = SHEET.worksheet('Difficulty 1')
+# dif_one = SHEET.worksheet('Difficulty 3')
 # data = dif_one.get_all_values()
 # print(data)
 
@@ -25,6 +25,7 @@ def main_menu():
         os.system('clear')
         print("1: Start game")
         print("2: Rules")
+        print("3: High scores")
         user_choice = input("Enter choice: ")
 
         if(validate_choice(user_choice)):
@@ -34,6 +35,8 @@ def main_menu():
             elif user_choice == "2":
                 rules()
                 os.system('clear')
+            elif user_choice == "3":
+                show_high_scores()
             break
 
 
@@ -85,6 +88,36 @@ def rules():
     print("You need to hit all points of a ship in order to sink it.\n")
     print(input("Press 'Enter' to return to the main menu"))
     main_menu()
+
+
+def show_high_scores():
+    """
+    """
+    while True:
+        print("Select a list to view")
+        print("1: One ship")
+        print("2: Two ships")
+        print("3: Three ships")
+        print("4: Return to main menu")
+        list_choice = input("Enter choice: ")
+
+        if(validate_choice(list_choice)):
+            if list_choice == "1":
+                os.system('clear')
+                dif_one = SHEET.worksheet('Difficulty 1')
+                data = dif_one.get_all_values()
+                print(data)
+            elif list_choice == "2":
+                os.system('clear')
+                dif_two = SHEET.worksheet('Difficulty 2')
+                data = dif_two.get_all_values()
+                print(data)
+            elif list_choice == "3":
+                os.system('clear')
+                dif_three = SHEET.worksheet('Difficulty 3')
+                data = dif_three.get_all_values()
+                print(data)
+            break
 
 
 def start_game(difficulty_choice):
@@ -315,5 +348,5 @@ def main():
     main_menu()
 
 
-print("Welcome to Battleships")
-main()
+# print("Welcome to Battleships")
+# main()
