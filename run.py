@@ -28,10 +28,11 @@ def set_difficulty():
         print("1: One ship")
         print("2: Two ships")
         print("3: Three ships")
-        difficulty_choice = int(input("Enter choice: "))
+        difficulty_choice = input("Enter choice: ")
 
         if(validate_choice(difficulty_choice)):
-            start_game(difficulty_choice)
+            start_game(int(difficulty_choice))
+            break
 
 
 def validate_choice(choice):
