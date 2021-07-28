@@ -13,9 +13,9 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Battleship Highscores')
-dif_one = SHEET.worksheet('Difficulty 1')
-data = dif_one.get_all_values()
-print(data)
+# dif_one = SHEET.worksheet('Difficulty 1')
+# data = dif_one.get_all_values()
+# print(data)
 
 
 def main_menu():
@@ -264,6 +264,10 @@ def add_board(board):
 
 def win_game(attempts, difficulty_choice):
     """
+    Gives user three choices; register score, main menu, or exit
+    Validates input
+    Register calls register_high_score and passes difficulty and attempts
+    Return calls main_menu, and exit ends application
     """
     while True:
         print("Congratulations! You sank all the battleships\n")
@@ -283,7 +287,25 @@ def win_game(attempts, difficulty_choice):
 
 
 def register_high_score(attempts, difficulty_choice):
-    print("To be defined")
+    """
+    Asks user to enter name
+    Calls update function and passes name, attempts, and difficulty choice
+    """
+    name = input("Enter your name: ")
+    os.system('clear')
+    update_high_score(name, attempts, difficulty_choice)
+
+
+def update_high_score(name, attempts, difficulty_choice):
+    """
+    Accesses specific worksheet by using difficulty choice
+    Updates worksheet, by creating list to add to new row with the parameters
+    """
+    print("Updating highscore list...")
+    list_to_append = [name, 10-attempts, difficulty_choice]
+    diff_worksheet = SHEET.worksheet(f'Difficulty {difficulty_choice}')
+    diff_worksheet.append_row(list_to_append)
+    print("List updated successfully\n")
 
 
 def main():
@@ -293,5 +315,5 @@ def main():
     main_menu()
 
 
-# print("Welcome to Battleships")
-# main()
+print("Welcome to Battleships")
+main()
