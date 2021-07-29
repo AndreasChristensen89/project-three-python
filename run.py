@@ -32,25 +32,25 @@ def main_menu():
 
         if(validate_choice(user_choice, 4)):
             if user_choice == "1":
-                os.system('clear')
+                os.system('cls' if os.name == 'nt' else 'clear')
                 set_difficulty()
                 break
             elif user_choice == "2":
                 rules()
-                os.system('clear')
+                os.system('cls' if os.name == 'nt' else 'clear')
                 break
             elif user_choice == "3":
                 show_high_scores()
                 break
             elif user_choice == "4":
-                os.system('clear')
+                os.system('cls' if os.name == 'nt' else 'clear')
                 print("Ciao")
                 break
 
 
 def set_difficulty():
     while True:
-        os.system('clear')
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("Set the difficulty\n")
         print("1: One ship")
         print("2: Two ships")
