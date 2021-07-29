@@ -386,4 +386,4 @@ def main():
 
 
 print("Welcome to Battleships\n")
-# main()
+main()
