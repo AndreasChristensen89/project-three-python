@@ -1,5 +1,5 @@
 from random import randint
-# import os
+import os
 from operator import itemgetter
 import gspread
 from google.oauth2.service_account import Credentials
@@ -25,7 +25,8 @@ def main_menu():
     """
     """
     while True:
-        print("\n"*24)
+        # print("\n"*24)
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("1: Start game")
         print("2: Rules")
         print("3: High scores")
@@ -52,7 +53,8 @@ def main_menu():
 
 def set_difficulty():
     while True:
-        print("\n"*24)
+        # print("\n"*24)
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("Set the difficulty\n")
         print("1: One ship")
         print("2: Two ships")
