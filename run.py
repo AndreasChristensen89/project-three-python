@@ -1,5 +1,6 @@
 from random import randint
 from os import system, name
+from time import sleep
 from operator import itemgetter
 import gspread
 from google.oauth2.service_account import Credentials
@@ -21,6 +22,11 @@ def clear():
         _ = system('cls')
     else:
         _ = system('clear')
+
+
+print('hello geeks\n'*10)
+sleep(2)
+clear()
 
 
 def main_menu():
@@ -394,4 +400,4 @@ def main():
 
 
 print("Welcome to Battleships\n")
-main()
+# main()
