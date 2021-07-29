@@ -262,11 +262,14 @@ def validate_data(guess, board):
     """
     try:
         int(guess[1:2])
-        test_str = isinstance(guess[:1], str)
+        test_letter = False
+        for i in board:
+            if i[0] == guess[:1].upper():
+                test_letter = True
         test_len = len(guess)
         if int(guess[1:2]) > 7 or int(ord(guess[:1].lower())-96) > 7:
             raise ValueError("out of bounds")
-        elif not test_str or not test_len == 2:
+        elif not test_letter or not test_len == 2:
             raise ValueError("invalid input")
     except ValueError as e:
         print("\n"*24)
