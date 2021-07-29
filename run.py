@@ -15,17 +15,11 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Battleship Highscores')
 
-# clear = lambda: system('clear')
-
-
-# cls = lambda: system('cls')
-
 
 def main_menu():
     """
     """
     while True:
-        # print("\n"*24)
         os.system('cls' if os.name == 'nt' else 'clear')
         print("1: Start game")
         print("2: Rules")
@@ -35,25 +29,24 @@ def main_menu():
 
         if(validate_choice(user_choice, 4)):
             if user_choice == "1":
-                print("\n"*24)
+                os.system('cls' if os.name == 'nt' else 'clear')
                 set_difficulty()
                 break
             elif user_choice == "2":
                 rules()
-                print("\n"*24)
+                os.system('cls' if os.name == 'nt' else 'clear')
                 break
             elif user_choice == "3":
                 show_high_scores()
                 break
             elif user_choice == "4":
-                print("\n"*24)
+                os.system('cls' if os.name == 'nt' else 'clear')
                 print("Ciao")
                 break
 
 
 def set_difficulty():
     while True:
-        # print("\n"*24)
         os.system('cls' if os.name == 'nt' else 'clear')
         print("Set the difficulty\n")
         print("1: One ship")
@@ -74,10 +67,10 @@ def validate_choice(choice, num_of_choices):
         if int(choice) > num_of_choices or int(choice) < 1:
             raise ValueError("Choice not valid")
     except ValueError as e:
-        print("\n"*24)
+        os.system('cls' if os.name == 'nt' else 'clear')
         print(f"Invalid data: {e}, input must be numbers within range")
         print(input("Press any key to continue\n"))
-        print("\n"*24)
+        os.system('cls' if os.name == 'nt' else 'clear')
         return False
     return True
 
@@ -85,7 +78,7 @@ def validate_choice(choice, num_of_choices):
 def rules():
     """
     """
-    print("\n"*24)
+    os.system('cls' if os.name == 'nt' else 'clear')
     print("The rules of Battleship: \n")
     print("You have limited attempts to sink the ships.")
     print("You decide how many ships there will be,")
@@ -105,7 +98,7 @@ def rules():
 def show_high_scores():
     """
     """
-    print("\n"*24)
+    os.system('cls' if os.name == 'nt' else 'clear')
     while True:
         print("Select a list to view\n")
         print("1: One ship")
@@ -119,7 +112,7 @@ def show_high_scores():
                 main_menu()
                 break
             else:
-                print("\n"*24)
+                os.system('cls' if os.name == 'nt' else 'clear')
                 dif_two = SHEET.worksheet(f'Difficulty {list_choice}')
                 data = dif_two.get_all_values()
                 data_sorted = sorted(data, key=itemgetter(1))
@@ -141,7 +134,7 @@ def start_game(difficulty_choice):
     Ships are generated, difficulty level passed to know number of ships.
     Ask_for_choices() is called, board and ships generated are passed.
     """
-    print("\n"*24)
+    os.system('cls' if os.name == 'nt' else 'clear')
     board = []
     board_rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     board.append([' ', '1', '2', '3', '4', '5', '6', '7'])
@@ -170,17 +163,17 @@ def ask_for_choices(board, ship, difficulty_choice):
 
     while True:
         if attempts == 0:
-            print("\n"*24)
+            os.system('cls' if os.name == 'nt' else 'clear')
             print("Game Over\n")
             end_of_game()
             break
         elif sorted(hit_count) == sorted(ship):
-            print("\n"*24)
+            os.system('cls' if os.name == 'nt' else 'clear')
             win_game(attempts, difficulty_choice)
             break
         print(f"Attempts left: {attempts}")
 
-        guess = input("Guess a row and a number: (e.g. D8) \n")
+        guess = input("Guess a row and a number: (e.g. C5) \n")
 
         if validate_data(guess, board):
             char_one = int(ord(guess[:1].lower())-96)
@@ -188,17 +181,17 @@ def ask_for_choices(board, ship, difficulty_choice):
             coordinate = board[char_one][char_two]
 
             if coordinate == "X" or coordinate == "O":
-                print("\n"*24)
+                os.system('cls' if os.name == 'nt' else 'clear')
                 add_board(board)
                 print("This point has already been guessed")
             elif guess.upper() in ship:
-                print("\n"*24)
+                os.system('cls' if os.name == 'nt' else 'clear')
                 hit_count.append(guess.upper())
                 update_board(board, guess, "O")
                 # print(hit_count)
                 # print(ship)
             else:
-                print("\n"*24)
+                os.system('cls' if os.name == 'nt' else 'clear')
                 attempts -= 1
                 update_board(board, guess, "X")
 
@@ -274,10 +267,10 @@ def validate_data(guess, board):
         elif not test_letter or not test_len == 2:
             raise ValueError("invalid input")
     except ValueError as e:
-        print("\n"*24)
+        os.system('cls' if os.name == 'nt' else 'clear')
         print(f"Error: {e}, must be letter and number within range")
         print(input("Press any key to continue"))
-        print("\n"*24)
+        os.system('cls' if os.name == 'nt' else 'clear')
         add_board(board)
         return False
     return True
@@ -329,11 +322,11 @@ def win_game(attempts, difficulty_choice):
 
         if(validate_choice(choice, 3)):
             if choice == "1":
-                print("\n"*24)
+                os.system('cls' if os.name == 'nt' else 'clear')
                 register_high_score(attempts, difficulty_choice)
                 break
             elif choice == "2":
-                print("\n"*24)
+                os.system('cls' if os.name == 'nt' else 'clear')
                 main_menu()
                 break
             elif choice == "3":
@@ -349,7 +342,7 @@ def register_high_score(attempts, difficulty_choice):
     """
     while True:
         name = input("Enter your name: (Max 10 letters) \n")
-        print("\n"*24)
+        os.system('cls' if os.name == 'nt' else 'clear')
         if len(name) <= 10 and len(name) > 0:
             update_high_score(name, attempts, difficulty_choice)
             break
@@ -378,7 +371,7 @@ def end_of_game():
 
         if validate_choice(choice, 2):
             if choice == "1":
-                print("\n"*24)
+                os.system('cls' if os.name == 'nt' else 'clear')
                 main_menu()
                 break
             elif choice == "2":
