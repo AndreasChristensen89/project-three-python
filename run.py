@@ -193,8 +193,8 @@ def ask_for_choices(board, ship, difficulty_choice):
                 print("\n"*24)
                 hit_count.append(guess.upper())
                 update_board(board, guess, "O")
-                print(hit_count)
-                print(ship)
+                # print(hit_count)
+                # print(ship)
             else:
                 print("\n"*24)
                 attempts -= 1

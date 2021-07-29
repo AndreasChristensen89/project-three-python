@@ -9,3 +9,6 @@ You should consider upgrading via the '/home/gitpod/.pyenv/versions/3.8.11/bin/p
 This has not been installed yet
 
 Remember to remove print statements from ask_for_choices elif
+
+Link to Google sheet:
+https://docs.google.com/spreadsheets/d/1VDhR8UUuAHAOBzgp_l9Ok1cZ5mcHgM7KnZ9ZBYMuL3M/edit?usp=sharing
