@@ -14,16 +14,19 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Battleship Highscores')
-# dif_one = SHEET.worksheet('Difficulty 3')
-# data = dif_one.get_all_values()
-# print(data)
+
+# clear = lambda: system('clear')
+
+
+# cls = lambda: system('cls')
 
 
 def main_menu():
     """
     """
     while True:
-        os.system('clear')
+        # os.system('clear')
+        print("\n"*100)
         print("1: Start game")
         print("2: Rules")
         print("3: High scores")
@@ -32,25 +35,29 @@ def main_menu():
 
         if(validate_choice(user_choice, 4)):
             if user_choice == "1":
-                os.system('cls' if os.name == 'nt' else 'clear')
+                # os.system('clear')
+                print("\n"*100)
                 set_difficulty()
                 break
             elif user_choice == "2":
                 rules()
-                os.system('cls' if os.name == 'nt' else 'clear')
+                # os.system('clear')
+                print("\n"*100)
                 break
             elif user_choice == "3":
                 show_high_scores()
                 break
             elif user_choice == "4":
-                os.system('cls' if os.name == 'nt' else 'clear')
+                # os.system('clear')
+                print("\n"*100)
                 print("Ciao")
                 break
 
 
 def set_difficulty():
     while True:
-        os.system('cls' if os.name == 'nt' else 'clear')
+        # os.system('clear')
+        print("\n"*100)
         print("Set the difficulty\n")
         print("1: One ship")
         print("2: Two ships")
