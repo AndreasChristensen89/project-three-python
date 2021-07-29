@@ -89,7 +89,7 @@ def rules():
     print("You decide how many ships there will be,")
     print("but you don't know how big they are or where they are placed.")
     print("The maximum size is 4, and the minimum is 2.\n")
-    print("Enter your coordinates to strike the point:")
+    print("Enter your coordinates to strike a point:")
     print("- One letter between A-H")
     print("- One number between 1-9")
     print("- For example: C4\n")
@@ -375,8 +375,10 @@ def end_of_game():
             if choice == "1":
                 print("\n"*24)
                 main_menu()
+                break
             elif choice == "2":
                 break
+            break
 
 
 def main():
