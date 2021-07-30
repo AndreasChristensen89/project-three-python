@@ -18,6 +18,8 @@ SHEET = GSPREAD_CLIENT.open('Battleship Highscores')
 
 def main_menu():
     """
+    Prints choices and takes int input. Validates data, redirects with choice.
+    1: set_difficulty - 2: rules - 3: show_high_score - 4: exits application
     """
     while True:
         print("\n"*24)
@@ -27,7 +29,7 @@ def main_menu():
         print("4: Exit game\n")
         user_choice = input("Enter choice: \n")
 
-        if(validate_choice(user_choice, 4)):
+        if(menu_data_validation(user_choice, 4)):
             if user_choice == "1":
                 print("\n"*24)
                 os.system("clear")
@@ -49,6 +51,12 @@ def main_menu():
 
 
 def set_difficulty():
+    """
+    Prints four choices and takes int input.
+    Validates data and redirects according to choice
+    1-3 calls start_game with input parameter to set number of ships/difficulty
+    4: return to menu
+    """
     while True:
         print("\n"*24)
         print("Set the difficulty\n")
@@ -58,7 +66,7 @@ def set_difficulty():
         print("4: Return to menu\n")
         difficulty_choice = input("Enter choice: \n")
 
-        if(validate_choice(difficulty_choice, 4)):
+        if(menu_data_validation(difficulty_choice, 4)):
             if difficulty_choice == "4":
                 main_menu()
                 break
@@ -67,8 +75,13 @@ def set_difficulty():
             break
 
 
-def validate_choice(choice, num_of_choices):
+def menu_data_validation(choice, num_of_choices):
     """
+    Takes two parameters: input given and the max range of int to be accepted
+    Attempts to convert choice parameter to int to provoke error
+    Checks if choice is within range
+    Calls out ValueErrors and prints a message to user
+    Returns boolean value
     """
     try:
         int(choice)
@@ -85,6 +98,7 @@ def validate_choice(choice, num_of_choices):
 
 def rules():
     """
+    Prints the rules, takes any input to return to main menu
     """
     print("\n"*24)
     print("The rules of Battleship: \n")
@@ -105,6 +119,11 @@ def rules():
 
 def show_high_scores():
     """
+    Prints choices of lists, takes input, validates and prints specifc list
+    Gets all values from sheet, sorts them via itemgetter by second value
+    Prints column headings separated by long space
+    Prints the now sorted rows, added space calculated by length to align
+    Takes any input to return to main menu
     """
     print("\n"*24)
     while True:
@@ -115,7 +134,7 @@ def show_high_scores():
         print("4: Return to main menu\n")
         list_choice = input("Enter choice: \n")
 
-        if(validate_choice(list_choice, 4)):
+        if(menu_data_validation(list_choice, 4)):
             if list_choice == "4":
                 main_menu()
                 break
@@ -137,10 +156,10 @@ def show_high_scores():
 
 def start_game(difficulty_choice):
     """
-    Construct board with initial number-list, 1st is blank for corner value.
-    Followed by lists that take increasing letters as first index (rows).
+    Construct board, append initial number-list, 1st is blank for corner value.
+    For loop to append lists that take increasing letters as first index(rows).
     Board is passed and printed via add_board().
-    Ships are generated, difficulty level passed to know number of ships.
+    Ship-generator called, difficulty level passed to know number of ships.
     Ask_for_choices() is called, board and ships generated are passed.
     """
     print("\n"*24)
@@ -161,14 +180,13 @@ def start_game(difficulty_choice):
 def ask_for_choices(board, ship, difficulty_choice):
     """
     Attempts variable is created, decreases with loss and gameover if 0.
-    Hit count list is created, right guesses (coordinates) are added,
+    Hit count list is created, right guesses (coordinates) are added.
     if hit count == ship list then win.
     Asks for input, validates data via validate_data(), checks for outcome.
-    Right guess update board with 'O', wrong with 'X', error if repeat guess.
+    Right guess updates board with 'O', wrong with 'X', error if repeat guess.
     """
     attempts = 10
 
-    # print(ship)
     hit_count = []
 
     while True:
@@ -259,9 +277,10 @@ def generate_computer_ship(number_of_ships):
 def validate_data(guess, board):
     """
     Attemps to convert second char of input to an int,
-    tests if first char is a string, and tests length.
-    Validates range of letter and number
-    Raises valueerror, and reprints the board as it was before error
+    Creates boolean value, creates for loop and attempts to find guess
+    in lists, if not then False.
+    Validates range of letter and number.
+    If not ok raises valueerror, and reprints the board as it was before error
     """
     try:
         int(guess[1:2])
@@ -287,8 +306,8 @@ def validate_data(guess, board):
 
 def update_board(board, guess, mark):
     """
-    Uses first char of player guess to find the right list,
-    then uses second char to locate right index to change to mark-parameter.
+    For loop: Uses first char of player guess to find the right list,
+    uses second char to locate right index to change to mark-parameter.
     Board is printed with mark value added, and message of miss/hit
     """
     for i in board:
@@ -309,6 +328,7 @@ def add_board(board):
     For loop prints out all items in list separated by " " using join().
     Board not defined here in order to be able to reprint current board,
     which is printed after error messages.
+    A dare message is printed which generates random coordinate.
     """
     for i in board:
         print(" ".join(i))
@@ -320,9 +340,9 @@ def add_board(board):
 
 def win_game(attempts, difficulty_choice):
     """
-    Gives user three choices; register score, main menu, or exit
-    Validates input
-    Register calls register_high_score and passes difficulty and attempts
+    Gives user three choices; register score, main menu, or exit.
+    Validates input.
+    Register - calls register_high_score, passes difficulty and attempts used
     Return calls main_menu, and exit ends application
     """
     while True:
@@ -332,7 +352,7 @@ def win_game(attempts, difficulty_choice):
         print("3: Exit game\n")
         choice = input("Enter choice: \n")
 
-        if(validate_choice(choice, 3)):
+        if(menu_data_validation(choice, 3)):
             if choice == "1":
                 print("\n"*24)
                 register_high_score(attempts, difficulty_choice)
@@ -365,7 +385,7 @@ def register_high_score(attempts, difficulty_choice):
 def update_high_score(name, attempts, difficulty_choice):
     """
     Accesses specific worksheet by using difficulty choice
-    Updates worksheet, by creating list to add to new row with the parameters
+    Updates worksheet by creating list to add to new row with the parameters
     """
     print("Updating highscore list...")
     list_to_append = [name, 10-attempts]
@@ -376,12 +396,16 @@ def update_high_score(name, attempts, difficulty_choice):
 
 
 def end_of_game():
+    """
+    Gives users two options, validates data.
+    1: main_menu - 2: exit
+    """
     while True:
         print("1: Return to main menu")
         print("2: Exit\n")
         choice = input("Enter choice: \n")
 
-        if validate_choice(choice, 2):
+        if menu_data_validation(choice, 2):
             if choice == "1":
                 print("\n"*24)
                 main_menu()
@@ -391,12 +415,5 @@ def end_of_game():
             break
 
 
-def main():
-    """
-    Main function to set in motion the other functions
-    """
-    main_menu()
-
-
 print("Welcome to Battleships\n")
-main()
+main_menu()
