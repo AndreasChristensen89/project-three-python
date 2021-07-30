@@ -1,5 +1,6 @@
 from random import randint
 from operator import itemgetter
+import os
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -19,7 +20,9 @@ def main_menu():
     """
     """
     while True:
-        print("\n"*24)
+        
+        os.system("cls")
+        os.system("clear")
         print("1: Start game")
         print("2: Rules")
         print("3: High scores")
@@ -28,25 +31,28 @@ def main_menu():
 
         if(validate_choice(user_choice, 4)):
             if user_choice == "1":
-                print("\n"*24)
+                os.system("cls")
+                os.system("clear")
                 set_difficulty()
                 break
             elif user_choice == "2":
                 rules()
-                print("\n"*24)
+                os.system("cls")
+                os.system("clear")
                 break
             elif user_choice == "3":
                 show_high_scores()
                 break
             elif user_choice == "4":
-                print("\n"*24)
+                os.system("cls")
+                os.system("clear")
                 print("Ciao")
                 break
 
 
 def set_difficulty():
     while True:
-        print("\n"*24)
+        os.system("cls")
         print("Set the difficulty\n")
         print("1: One ship")
         print("2: Two ships")
@@ -66,10 +72,10 @@ def validate_choice(choice, num_of_choices):
         if int(choice) > num_of_choices or int(choice) < 1:
             raise ValueError("Choice not valid")
     except ValueError as e:
-        print("\n"*24)
+        os.system("cls")
         print(f"Invalid data: {e}, input must be numbers within range")
         print(input("Press any key to continue\n"))
-        print("\n"*24)
+        os.system("cls")
         return False
     return True
 
@@ -77,7 +83,7 @@ def validate_choice(choice, num_of_choices):
 def rules():
     """
     """
-    print("\n"*24)
+    os.system("cls")
     print("The rules of Battleship: \n")
     print("You have limited attempts to sink the ships.")
     print("You decide how many ships there will be,")
@@ -97,7 +103,7 @@ def rules():
 def show_high_scores():
     """
     """
-    print("\n"*24)
+    os.system("cls")
     while True:
         print("Select a list/difficulty to view\n")
         print("1: One ship")
@@ -111,7 +117,7 @@ def show_high_scores():
                 main_menu()
                 break
             else:
-                print("\n"*24)
+                os.system("cls")
                 print("The fewer misses the better\n")
                 dif_two = SHEET.worksheet(f'Difficulty {list_choice}')
                 data = dif_two.get_all_values()
@@ -134,7 +140,7 @@ def start_game(difficulty_choice):
     Ships are generated, difficulty level passed to know number of ships.
     Ask_for_choices() is called, board and ships generated are passed.
     """
-    print("\n"*24)
+    os.system("cls")
     board = []
     board_rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     board.append([' ', '1', '2', '3', '4', '5', '6', '7'])
@@ -163,12 +169,12 @@ def ask_for_choices(board, ship, difficulty_choice):
 
     while True:
         if attempts == 0:
-            print("\n"*24)
+            os.system("cls")
             print("Game Over\n")
             end_of_game()
             break
         elif sorted(hit_count) == sorted(ship):
-            print("\n"*24)
+            os.system("cls")
             win_game(attempts, difficulty_choice)
             break
         print(f"Attempts left: {attempts}")
@@ -181,17 +187,17 @@ def ask_for_choices(board, ship, difficulty_choice):
             coordinate = board[char_one][char_two]
 
             if coordinate == "X" or coordinate == "O":
-                print("\n"*24)
+                os.system("cls")
                 add_board(board)
                 print("This point has already been guessed")
             elif guess.upper() in ship:
-                print("\n"*24)
+                os.system("cls")
                 hit_count.append(guess.upper())
                 update_board(board, guess, "O")
                 # print(hit_count)
                 # print(ship)
             else:
-                print("\n"*24)
+                os.system("cls")
                 attempts -= 1
                 update_board(board, guess, "X")
 
@@ -267,10 +273,10 @@ def validate_data(guess, board):
         elif not test_letter or not test_len == 2:
             raise ValueError("invalid input")
     except ValueError as e:
-        print("\n"*24)
+        os.system("cls")
         print(f"Error: {e}, must be letter and number within range")
         print(input("Press any key to continue"))
-        print("\n"*24)
+        os.system("cls")
         add_board(board)
         return False
     return True
@@ -322,11 +328,11 @@ def win_game(attempts, difficulty_choice):
 
         if(validate_choice(choice, 3)):
             if choice == "1":
-                print("\n"*24)
+                os.system("cls")
                 register_high_score(attempts, difficulty_choice)
                 break
             elif choice == "2":
-                print("\n"*24)
+                os.system("cls")
                 main_menu()
                 break
             elif choice == "3":
@@ -342,7 +348,7 @@ def register_high_score(attempts, difficulty_choice):
     """
     while True:
         name = input("Enter your name: (Max 10 letters) \n")
-        print("\n"*24)
+        os.system("cls")
         if len(name) <= 10 and len(name) > 0:
             update_high_score(name, attempts, difficulty_choice)
             break
@@ -371,7 +377,7 @@ def end_of_game():
 
         if validate_choice(choice, 2):
             if choice == "1":
-                print("\n"*24)
+                os.system("cls")
                 main_menu()
                 break
             elif choice == "2":
