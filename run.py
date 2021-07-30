@@ -383,7 +383,7 @@ def update_high_score(name, attempts, difficulty_choice):
     Accesses specific worksheet by using difficulty choice
     Updates worksheet by creating list to add to new row with the parameters
     """
-    print("Updating highscore list...")
+    print("Updating high score list...")
     list_to_append = [name, 10-attempts]
     diff_worksheet = SHEET.worksheet(f'Difficulty {difficulty_choice}')
     diff_worksheet.append_row(list_to_append)

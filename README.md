@@ -9,7 +9,7 @@ This has not been installed yet
 
 # Battleship
 
-The idea behind this project is to create a single-player game of battleships where the player should be able to play solo against the computer on different difficulties, being able to upload results, and seing other players' results.
+The idea behind this project is to create a single-player game of battleships where the player should be able to play solo against the computer on different difficulties, being able to upload results, and seeing other players' results.
 The target group is anyone who enjoys a simple game that is a mix of chance and logic. The game requires a basic grasp of the rules and can be won either with pure luck, or more likely with a bit of strategy. However, the simple layout would be suited for people who are not interested in visual styling and only wants the pure game mechanics. The game has to be played in a terminal and can be played on modern browsers.
 
 The aim of the game is to sink the ships with as few attempts as possible.
@@ -23,7 +23,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
 ### Existing features:
 * __Menu data validation__
     * Data input in all menus is validated through a function, and in case of fail it prints an error message:
-        * In case of number wrong: "Invaid data: Choice not valid, input must be numbers within range", followed by input field "Press any key to continue"
+        * In case of number wrong: "Invalid data: Choice not valid, input must be numbers within range", followed by input field "Press any key to continue"
         * In case of character input: "Invalid data: invalid literal for int() with base 10: 'CHARACTERS', input must be numbers within rang
 
 ![Menu data validation](/assets/images/readme-pictures/navigation-bar.webp)
@@ -44,7 +44,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
     * Has 12 print statements that explain the rules and the objective, separated into three sections.
     * On top there is a heading "The rules of Battleship" followed by an empty line.
     * First section has five lines and explains the objective.
-    * Second second has three lines and explains how to play.
+    * Second section has three lines and explains how to play.
     * Third section has three lines and explain the visual presentation and how to understand them, followed by empty line.
     * Below is an input field with the text "Press 'Enter' / any key to return to menu". Player can press enter, or any key + enter to return to main menu
 
@@ -72,7 +72,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
 ![High Score](/assets/images/readme-pictures/introduction.webp)
 
 * __Set difficulty__
-    * Shows the different difficulty levels the player can choose. Choice is passed through a function that generates ship of random lenght (2-4) and random vertical/horizontal, and passes the coordinates into a list. When the corrent number of ships is in the list it is passed on, and the actual game starts.
+    * Shows the different difficulty levels the player can choose. Choice is passed through a function that generates ship of random length (2-4) and random vertical/horizontal and passes the coordinates into a list. When the correct number of ships is in the list it is passed on, and the actual game starts.
     * Heading reads "Set the difficulty", followed by empty line
     * Four print statements:
         * 1: One ship - passes 1 to generate ship function
@@ -89,13 +89,13 @@ The aim of the game is to sink the ships with as few attempts as possible.
         * Top list represents the columns. First item is blank as this is simply an unused corner, which makes sure the following numbers 1-7, or columns, are directly over the "coordinates" below.
         * The next seven lists each start with an uppercase letter of the alphabet, which goes one up ("A", "B",..."G") for each list, followed by seven "-" which represents untouched coordinates.
     * Below is an empty line, followed by a teasing text: "I dare you to pick {random}{random}". The two variables generate a random coordinate that has little chance of being correct. Underneath comes is an empty line and then text which tells the player how many attempts there are left. The number is a variable and will decrease when incorrect guesses are made.
-    * In the bottom is an input field "Guess a row and a number: (e.g. C5)"
+    * In the bottom is an input field "Guess a row and a number: (e.g., C5)"
     * Data is validated through a different function from the menus:
         * In case of wrong characters/order: "Error: invalid literal for int() with base 10: 's', must be letter and number within range" - new line - "Press any key to continue"
         * In case of letter/number out of range: "Error: out of bounds, must be letter and number within range" - new line - "Press any key to continue"
-    * If data validated then board and hit count/attempts are updated:
+    * If data is validated then board and hit count/attempts are updated:
         * Board will use input-coordinates to find list and index.
-            * If this point exists in ship list then the index will be changed to "O", and then print "You hit the ship".
+            * If this point exists in ship list, then the index will be changed to "O", and then print "You hit the ship".
                 * Hit count will add this coordinate to its list.
             * If the point doesn't exist the index will change to "X", and then print "You missed the ship"
                 * Attempts variable will decrease by one
@@ -105,7 +105,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
 ![Game Screen](/assets/images/readme-pictures/losing-screen.webp)
 
 * __Game over screen__
-    * A simple message of "Game Over" is printed, follwed by an empty line
+    * A simple message of "Game Over" is printed, followed by an empty line
     * Below two choices are printed:
         * 1: Return to the main menu - clears screen and returns to the main menu
         * 2: Exit - exits the application
@@ -144,14 +144,14 @@ The aim of the game is to sink the ships with as few attempts as possible.
 
 ### Future features to implement
 * Add multiplayer option
-* Multiplayer does not need to be live, but can grab a random set of coordinates given by a player at any moment. Players will know result from lists (Add search function to find outcome)
+* Multiplayer does not need to be live but can grab a random set of coordinates given by a player at any moment. Players will know result from lists (Add search function to find outcome)
 * Possibility for the player to add ships to play against the computer
 * Possibility for the player to select board size.
 
 ## Testing
 * Gitpod workspace was used to test functionality for both game and API
 * After deployment, Heroku deployment terminal was used to test functionality for both game and API
-* Data validation was tested with a large number of different input. Letters, characters, lengths, reverse, capital, lowecase.
+* Data validation was tested with a large number of different inputs. Letters, characters, lengths, reverse, capital, lowercase.
 
 __Breakpoints__
 There are not breakpoints set for this project
@@ -160,13 +160,13 @@ There are not breakpoints set for this project
 ### Browser testing 
 * Test on Firefox, Edge, Chrome, and Safari
 * Tested on my own phone, Samsung Galaxy S9 using Chrome and Firefox, no issues.
-* Media query tested on my own tablet, Ipad pro 2018 11" using Safari+Chrome, no issues.
+* Media query tested on my own tablet, iPad pro 2018 11" using Safari and Chrome, no issues.
 * General testing with my own laptop, Asus 13 inch using Chrome, no issues.
 
 There are no links in this project.
 
 ### Bugs discovered during testing:
-* I had a number of issues with creating ships as I was initially returning a dictionary with key:value pairs. The problem was that each key had to be different, so letters could not repeat, but they had to when it came to horizontal values, e.g. F2, F3, F4... Due to this, I chose to return a list instead.
+* I had a number of issues with creating ships as I was initially returning a dictionary with key: value pairs. The problem was that each key had to be different, so letters could not repeat, but they had to when it came to horizontal values, e.g. F2, F3, F4... Due to this, I chose to return a list instead.
     * In the beginning I wanted to return a list per ship, but I found it much easier to return a single list, which is really just a set of coordinates
 * Clear screen issue: In my working environment on Gitpod I initially used the os.system('clear') command for clearing the terminal, thus giving a more visually pleasing transitioning. However, this didn't work on Heroku, and the next prints would simply be printed underneath with the 'old' text still visible. I tried different solutions with a function determining the operating system, and then calling the appropriate command:
 
@@ -213,7 +213,7 @@ Before deploying: Every input code field should end with \n due to a quirk in th
 * Go to settings -> "Reveal Config Vars": here you should put sensitive data (for this project the json.creds file to connect to the API), as it is not synchonized with Github (in the gitignore file).
     * In "Key" put in name of file (CREDS), and in "VALUE" copy content of creds.json file. -> press "Add"
 * Select "Add buildpack" below config vars -> click "Python" then save -> add again and select "nodejs" then save. (Python should be first)
-* To to deploy section -> Select "GitHub" -> confirm connection
+* Go to deploy section -> Select "GitHub" -> confirm connection
 * In the bottom search for your repository, use name in GitHub -> search and connect
 * Below you can now deploy, either automatically or manually.
 * Once done press "View" to open deployed project
@@ -239,13 +239,13 @@ I imported the following:
 * import gspread & from google.oauth2.service_account import Credentials - used for the API setup
 
 ### Hosting and Development
-GitHub was used to host the repository, GitPot was used for development and version control, and Heroku was used to deploy site.
+GitHub was used to host the repository, Gitpod was used for development and version control, and Heroku was used to deploy site.
 
 ## Setting up API
-Battleship is connected to a Google Sheet. From here players are able to extract data, and after a win they are able to upload data to it.
+Battleship is connected to a Google Sheet. From here players can extract data, and after a win they are able to upload data to it.
 
 ### How to set up the API
-IMPORTANT: Information below may not be releveant due to possible future updates from Google
+IMPORTANT: Information below may not be relevant due to possible future updates from Google
 * Create a Google Sheet with your personal Google account
 * Go to Google Cloud Platform: https://console.cloud.google.com/
 * Press "Create new project" -> give it a name -> create -> Select "Select project"
@@ -289,10 +289,10 @@ Afterwards they were converted to webp using https://cloudconvert.com/png-to-web
 
 
 ### Text content
-Content was all formulated by myself, as I have played the original battleship game many times in my life I didn't need to look up the rules or get inspiration for formulating.
+Content was all formulated by myself, as I have played the original battleship game many times in my life, I didn't need to look up the rules or get inspiration for formulating.
 
 ### Coding help
-* For help with varius challenges with Python I often resorted to the Material by Code Institute and https://stackoverflow.com/
+* For help with various challenges with Python I often resorted to the Material by Code Institute and https://stackoverflow.com/
 * For help with syntax reminders I often used the material by Code Institute, as well as https://www.w3schools.com/ 
 * For general best practice I used Code Institute's Slack community.
 
@@ -303,7 +303,7 @@ Content was all formulated by myself, as I have played the original battleship g
 ## User Stories:
 
 ### The User
-* What are the goals for a first-time visitor
+* What are the goals for a first-time visitor?
    * Quickly understand that this is a game and how to start it
         * This is indicated by the "Start game" option, also "Enter Choice: " in the bottom tells the player what to do.
    * Quickly understand where to look
@@ -315,14 +315,14 @@ Content was all formulated by myself, as I have played the original battleship g
    * Easily understand the goal of the game
         * Rules are written simple and separated into sections for easier readability.
    * Understand how to make the initial guess in the game
-        * On the game screen there is input text which explains that the player should pick a letter and a number, and gives an example of input.
+        * On the game screen there is input text which explains that the player should pick a letter and a number and gives an example of input.
    * Understand how to advance after a hit/miss
         * There is a counter for attempts, which is meant to signal that the game is still ongoing, and the player should therefore continue as before
     * Understand where to find high scores, and how they are measured
-        * Navigation is clearly displayed, in the high score menu the heading says "Select a list/difficulty to view", which tells the players that high scores are separated by difficulty.
-        * In the high score lists a top remark tells the players "The fewer misses the better", which aims to make the player understand the hierarchy of scores, and explains why the lowest are on top.
+        * Navigation is clearly displayed, in the high score menu the heading says "Select a list/difficulty to view" which tells the players that high scores are separated by difficulty.
+        * In the high score lists a top remark tells the players "The fewer misses the better", which aims to make the player understand the hierarchy of scores and explains why the lowest are on top.
 
-* What are the goals for a returning visitor
+* What are the goals for a returning visitor?
    * Instantly/easily remember how to navigate the content
         * I estimate this to be intuitive
    * Easily remember how to navigate play the game
@@ -335,7 +335,7 @@ The purpose of this site is to create a simple-to-play game that requires a bit 
 The scope is within beginner boundaries. Features are limited but should be smooth and completely functional. Maximum three choices per screen, excluding return option.
 
 ## Structure
-The features have been laid out previously. The flow of the website is simple and should be intuitive for most anyone. Game, rules, high scores. Players are guided through the game with supporting text that helps them understand what is happening. When starting the application the player is immediately in the menu. In case there is some confusion / if the player wishes to know more about the rules of the game the navigation menu makes it simple to return. The structure is limited, so the menu should not make player feel lost.
+The features have been laid out previously. The flow of the website is simple and should be intuitive for most anyone. Game, rules, high scores. Players are guided through the game with supporting text that helps them understand what is happening. When starting the application, the player is immediately in the menu. In case there is some confusion / if the player wishes to know more about the rules of the game the navigation menu makes it simple to return. The structure is limited, so the menu should not make player feel lost.
 
 
 ## Surface
