@@ -1,6 +1,5 @@
 from random import randint
 from operator import itemgetter
-import os
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -32,20 +31,17 @@ def main_menu():
         if(menu_data_validation(user_choice, 4)):
             if user_choice == "1":
                 print("\n"*24)
-                os.system("clear")
                 set_difficulty()
                 break
             elif user_choice == "2":
                 rules()
                 print("\n"*24)
-                os.system("clear")
                 break
             elif user_choice == "3":
                 show_high_scores()
                 break
             elif user_choice == "4":
                 print("\n"*24)
-                os.system("clear")
                 print("Ciao")
                 break
 

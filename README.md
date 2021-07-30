@@ -173,6 +173,8 @@ There are no links in this project.
     * In the beginning I wanted to return a list per ship, but I found it much easier to return a single list, which is really just a set of coordinates
 * Clear screen issue: In my working environment on Gitpod I initially used the os.system('clear') command for clearing the terminal, thus giving a more visually pleasing transitioning. However, this didn't work on Heroku, and the next prints would simply be printed underneath with the 'old' text still visible. I tried different solutions with a function determining the operating system, and then calling the appropriate command:
 
+One attempt:
+
     from os import system, name
     
     define our clear function
@@ -186,7 +188,7 @@ There are no links in this project.
 
     clear()
 
-Also:
+Another attempt:
 
     import os
     os.system('cls' if os.name == 'nt' else 'clear')c
@@ -196,7 +198,7 @@ However, it didn't work on the deployed version on Heroku, so instead I replaced
 24 because of the 24 lines on the Heroku display
 
 ### Unfixed bugs
-*
+* Clear screen issue was resolved with an alternative solution, but I am still not happy with how the visuals work on Heroku when clearing screen.
 
 
 ### Validator testing:
@@ -284,109 +286,35 @@ Content was all formulated by myself, as I have played the game many times in my
 * What are the goals for a returning visitor
    * Instantly/easily remember how to navigate the content
         * I estimate this to be intuitive
-   * Easily remember how to play the game
-        * Hint is given when pressing play, and navigation to the rules page is easy
-   * Easily be able to contact the developer with questions, feedback, any other inquiries
-        * Navigation to contact page is easy via hamburger, and contact form is simple to use with few input fields
+   * Easily remember how to navigate play the game
+        * The rules are straightforward, I estimate navigation to pages to be easy. For playing game the rules are easy to reach, and there is an example of input on game screen.
 
 ## Strategy
-The purpose of this site is to create a simple to play game that entertains visually, and which does not require strategy to play. The goal for design was to create a simple play-interface as well as making it easy to access information with simple and clear design.
+The purpose of this site is to create a simple-to-play game that requires a bit of logic, and which has the option of setting difficulties, and comparing to other players. The goal for design was to create a simple play-interface as well as making it easy to access information with simple and clear communication.
 
 ## Scope
-The scope is within beginner boundaries. Features are limited but should be smooth and completely functional. No more than three pages: game, rules, and contact.
+The scope is within beginner boundaries. Features are limited but should be smooth and completely functional. Maximum three choices per screen, excluding return option.
 
 ## Structure
-The features have been laid out previously. The flow of the website is simple and should be intuitive for most anyone. Game, rules, contact. Players are guides through the game with animated/colored elements that signal to press them. When accesing the webpage the user lands directly on the game page and can start immediately. In case there is some confusion / if the player wishes to know more about the background or rules of the game / wishes to contact the developer the navigation bar makes it simple to access all pages from anywhere and from any stage of the game. A restart button is also available when the game has started.
+The features have been laid out previously. The flow of the website is simple and should be intuitive for most anyone. Game, rules, high scores. Players are guided through the game with supporting text that helps them understand what is happening. When starting the application the player is immediately in the menu. In case there is some confusion / if the player wishes to know more about the rules of the game the navigation menu makes it simple to return. The structure is limited, so the menu should not make player feel lost.
 
 
 ## Surface
 
 ### Design choices
 * Overview: The aim is to provide easy-to-navigate pages that make it easy and clear to navigate around. 
-* The game should be easy for the eyes, meaning that there should be no overlapping animations that confuse players.
-* It should be clear to the player what should be clicked in order to advance.
-* Losses/wins/draws should be clear to understand and should have animations that demonstrate what happened.
+* The game should be easy for the eyes, meaning that there should be no text out of bounds/ not in line that confuse players.
+* It should be clear to the player what should be done in order to advance.
+* Losses/wins should be clear to understand and should have text that explains what happened.
 * Information should not be detailed but fast to read and understand, and straight to the point.
 
-### Color Scheme 
-Colors are chosen to represent a generally bright cartoony world, which aims to give users a positive and light-hearted feeling.
-In all stages of the game, and on all pages, there is always a play between green and blue. Blue is the general color while green is always present but more scarcely found, and it used to represent something positive/progression. There is at all times at least one green element on the screen, which is meant to attract the users' eyes. 
-
-Color names are found via https://www.htmlcsscolor.com/hex/749EAD.
-
-* Background picture:
-    * Main blue of window: rgb(114 217 237) - Turquoise Blue
-    * Darkest building: rgb(113 175 188) - Glacier
-    * Lighter building: rgb(129 193 206) - Seagull
-    * Lightest building: rgb(146 212 225) - Anakiwa
-    * Window bars: rgb(123 137 138) - Oslo Grey
-    * Bottom and top bars: rgb(84 76 73) - Saddle
-    * Floor: rgb(116 158 173) - Bali Hai
-    * Bonsai box: rgb(120 73 46) - Cape Palliser
-    * Bonsai box-lines: rgb(45 27 17) - Wood Bark
-    * Bonsai bottom-pot: rgb(189 137 109) - Brandy Rose
-    * Bonsai top-pot: rgb(168 116 86) - Sante Fe
-    * Bonsai top-pot-circle: rgb(147 91 59) - Rope
-    * Dirt: rgb(99 55 29) - Baker's Chocolate
-    * Tree: rgb(128 81 55) - Cigar
-    * Leaves: rgb(58 148 50) - La Palma
-* **White**
-    * All text on all pages
-    * Background color of hamburger icon
-* **rgb(116 158 173)** Bali Hai
-    * Background color: this is the same color as the background picture's floor, allowing for extensions of the picture.
-* **rgb(58 148 50)** La Palma - Green color of bonsai tree
-    * Play button
-    * Start button
-    * Go-button
-    * Health-meter
-    * Try again button
-    * H2 headings on rules page
-    * Clear and send buttons on contact page
-* **#455d66** San Juan - Dark grey
-    * H1 on landing page 
-    * H1 rules page
-    * H1 contact page
-* **#68acb9** Fountain blue
-    * H2 landing page 
-    * Text-box on intro-screen
-    * Text-box on win screen
-    * Text-box on victory screen
-    * Intro text-box on rules page
-    * Divs on rules page
-    * Larger text boxes on rules page
-    * Form color on contact page
-* **#77acb2** Neptune
-    * Opponent title
-* **#ea8426** Carrot orange
-    * Color when health drops below 75
-* **#c7be33** Old Gold
-    * Color when health drops below 50
-* **#d01414** Free speech red
-    * Color when color drops below 25
-* **#989191** Nobel - grey
-    * Color of corner restart button
-
-### Choice of text
-I found Lato to work quite well with all text. I think it complements the cartoony style.
-
-### Pictures/characters:
-Bright and colorful colors are chosen to give a positive feeling. It's meant for the user to think of it as light-hearted. The background was designed to be spacy, simple, and with only a few major variations of colors. The characters were drawn as simple and with a hint of humour - they're meant to be stereotypical Japanese office workers as depicted in manga/movies.
-
-The background is designed and set to repeat in order to allow for stretching of the image.
 
 ### Languages used
-* HTML
-* CSS
-* JavaScript
+* Python
 * Markdown language for readme file
 
-### Accessibility
-All non-text elements are marked with aria-labels, and the contrast between background and foreground colors were implemented in color scheme.
 
 ### Additional comments on setup
-* CSS was split into two files due to a design choice of having no scrolling on the main page which affected the other pages. Styling for the hamburger navigation was also separated due to both pages needing CSS from it (no-repeat), and also to separate it from the other CSS as much of the styling comes from a site I used.
-* JavaScript was split into two files (game-script and hamburger-navigation) due to eventlistener on load in one sheet that gives an error in the other, and also to separate as the hamburger code is not completely my own.
-* Aria-labels turned out a bit tricky since elements come, go, and change during the game. Therefore, I implemented functions to add appropiate labels in JavaScript. 
+*  
 
 
