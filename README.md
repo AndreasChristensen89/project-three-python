@@ -1,14 +1,10 @@
 add lucidchart for code logic
 
-Remember to add \n to input messages for deployment
-
 When installing pip I got the follow error-message:
 WARNING: You are using pip version 21.1.3; however, version 21.2.1 is available.
 You should consider upgrading via the '/home/gitpod/.pyenv/versions/3.8.11/bin/python3 -m pip install --upgrade pip' command.
 
 This has not been installed yet
-
-Remember to remove print statements from ask_for_choices elif
 
 Link to Google sheet:
 https://docs.google.com/spreadsheets/d/1VDhR8UUuAHAOBzgp_l9Ok1cZ5mcHgM7KnZ9ZBYMuL3M/edit?usp=sharing
@@ -51,41 +47,72 @@ The aim of the game is to play sink the ships with as new attempts as possible.
 
 ### Existing features:
 * __Main menu__
-    * The navigation bar is on all pages. It has links to the Home page, the Rules page, and the Contact page.
-    Visually, it is identical on each page but with a bottom border under the current page. It is a hamburger-style bar and appears and dissapears when clicking the round icon. It appears by sliding down from the top and covers a small area in the left side of the page and dissapears by sliding up.
-    * This section allows the user to always be able to navigate to all parts of the website without going back to the home page or scrolling to the top. The hamburger style allows the bar to be hidden in the top corner when not opened, thus creating more space for the game.
+    * The main menu has four print statements that lists the options for the player, followed by an input field that reads: "Enter choice: ".
+    * The player can choose between the following (screen is cleared for every choice):
+        * Start game - this starts the game and redirects to set-difficulty screen
+        * Rules - prints the objectives of the game and how to play
+        * High score - redirects to high score lists
+        * Exit game - exits the application
+    * Data is validated through function, and in case of fail it prints an error message:
+        * In case of number wrong: "Invaid data: Choice not valid, input must be numbers within range", followed by input field "Press any key to continue"
+        * In case of character input: "Invalid data: invalid literal for int() with base 10: 'CHARACTERS', input must be numbers within range
+
 
 ![Main menu](/assets/images/readme-pictures/navigation-bar.webp)
 
 * __Rules__
-    * The landing page has a centered heading with the title of the game at the top. Underneath is a centered sub-heading which acts as the subtitle. Finally, underneath the subtitle is the play button which has an animation on it to scale the size up and down. The background is a cartoony bright colored open office space with a bonsai tree close to the window. The windows show buildings outside.
-    * The titles and play button are shown to indicate that this is the start of the game. The play button animation is used to indicate that this button should be noticed and interacted with. The background is displayed to show the setting of the game,
+    * Has 12 print statements that explain the rules and the objective, separated into three sections.
+    * On top there is a heading "The rules of Battleship" followed by an empty line.
+    * First section has five lines and explains the objective.
+    * Second second has three lines and explains how to play.
+    * Third section has three lines and explain the visual presentation and how to understand them, followed by empty line.
+    * Below is an input field with the text "Press 'Enter' / any key to return to menu". Player can press enter, or any key + enter to return to main menu
 
 ![Rules](/assets/images/readme-pictures/landing-page.webp)
 
 * __High Score__
-    * This section appears after clicking play. It has a centered textbox with a quick tutorial of how to play, and underneath is a centered green start button.
-    * The quick tutorial gives players the information they need to play the game. The start button is green and animated and sticks out to invite users to click it to start the game.
+    * Shows the player the different lists that are available, they are separated into difficulty. Each choice clears the screen.
+    * Heading reads "Select a list to view", next is empty line.
+    * Four print statements that lists options for the player
+        * 1: One ship
+        * 2: Two ships
+        * 3: Three ships
+        * 4: Return to main menu
+    * Last is an input field with the text "Enter choice: ". 
+    * Data is validated through function, and in case of fail it prints an error message:
+        * In case of number wrong: "Invaid data: Choice not valid, input must be numbers within range", followed by input field "Press any key to continue"
+        * In case of character input: "Invalid data: invalid literal for int() with base 10: 'CHARACTERS', input must be numbers within range
+
+* __High score lists__
+    * Each list has a similar appearance
+    * Content is extracted from a Google Sheet and comes out as a list. List runs through function and is printed as desired:
+        * At the top "Name" and "Misses" are printed, separated by spaces to leave room for content below. Next line is empty.
+        * Scores are sorted so the fewest misses are printed on top (best result), with the correct name to the left.
+        * Names are followed by spacing calculated from the length of the name -> all scores will be printed on the same "column"
+    * Below is an input field with the text "Press 'Enter' / any key to return to menu". Player can press enter, or any key + enter to return to main menu.
 
 ![High Score](/assets/images/readme-pictures/introduction.webp)
 
 * __Set difficulty__
-    * At the top of the screen the name of the current opponent is displayed as a title. 
-    * Underneath is a green oval-shaped element with "100" written in it - this is the health meter. 
-    * Underneath the health meter are five buttons with pictures of the different choices players can make.
-    * Under the buttons is the opponent element with a picture of the current opponent - if this is the first opponent then the element is not animated, but if it isn't the opponent is animated with an opacity going from 0.0 to 1.0 over a second.
-    * When a button is clicked the player choice appears in the middle of the screen, meaning that the picture of the button is copied to this new element. The new element is animated to scale up and down and a green "go" button is generated and appears under the player choice.
-    * Lastly, in the right corner is a now a restart button.
-    * The opponent title changes according to the opponent and tells the players who they are versing. The green health meter changes numbers and colors according to how much health is left (green, orange, yellow, and red). The color code helps players easily understand how close they are to a loss. The five buttons clearly show the hand signals that are attached to them, and they scale up when a mouse hovers over them and scale down when mouse is off. The player choice animation signals to the player that this displayed hand is ready to be played. The opponent element is animated to appear in order to draw attention to the new opponent.
+    * Shows the different difficulty levels the player can choose. Choice is passed through a function that generates ship of random lenght (2-4) and random vertical/horizontal, and passes the coordinates into a list. When the corrent number of ships is in the list it is passed on, and the actual game starts.
+    * Heading reads "Set the difficulty", followed by empty line
+    * Three print statements:
+        * 1: One ship
+        * 2: Two ships
+        * 3: Three ships
+    * Last is an input field with the text "Enter choice: ". 
+    * Data is validated through function, and in case of fail it prints an error message:
+        * In case of number wrong: "Invaid data: Choice not valid, input must be numbers within range", followed by input field "Press any key to continue"
+        * In case of character input: "Invalid data: invalid literal for int() with base 10: 'CHARACTERS', input must be numbers within range
 
 ![Set difficulty](/assets/images/readme-pictures/main-game-screen.webp)
 
 * __Game screen__
-    * When a loss is registered the computer choice is displayed in a new element. The computer hand is animated to scale up a lot, and then scales down to land underneath a newly generated grey textbox which gives players a short comment on the loss.
-    * The player choice animation from before is set to stop.
-    * The health bar is animated to blink red and black, and the health number drops while the color changes according to the value.
-    * The hand-buttons are animated to scale up and down, which stops when a hand is clicked.
-    * The computer winning hand is scaled up in order to give the player a sense of defeat. It also draws their attention to the hand that beat them. The comments in the text box are randomly picked and they are encouraging and energetic which signals to the players to have another go. The health bar blinks in order to signal that damage has been taken. The hand-buttons start to scale in order to let players know that they should be interacted with in order to continue.
+    * Board is printed, which is eight lists printed out with a " " separating them.
+        * Top list represents the columns. First item is blank as this is simply an unused corner, which makes sure the columns are directly over the "coordinates" below.
+        * The next seven lists each start with an uppercase letter of the alphabet, which goes one up ("A", "B",..."G") for each list, followed by seven "-" which represents untouched coordinates.
+    * Below are empty lines, then text which tells the player how many attempts there are left.
+    * In the bottom is an input field "Guess a row and a number: (e.g. C5)"
 
 ![Game Screen](/assets/images/readme-pictures/losing-screen.webp)
 

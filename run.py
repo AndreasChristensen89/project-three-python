@@ -82,15 +82,15 @@ def rules():
     print("You have limited attempts to sink the ships.")
     print("You decide how many ships there will be,")
     print("but you don't know how big they are or where they are placed.")
-    print("The maximum size is 4, and the minimum is 2.\n")
+    print("The maximum number of points is 4, and the minimum is 2.")
+    print("You need to hit all points of a ship in order to sink it.\n")
     print("Enter your coordinates to strike a point:")
     print("- One letter between A-H")
     print("- One number between 1-9")
     print("- For example: C4\n")
     print("If you miss the point will be marked with an 'X'.")
-    print("If you hit a ship the point will be marked with a 'O'.")
-    print("You need to hit all points of a ship in order to sink it.\n")
-    print(input("Press 'Enter' to return to the main menu\n"))
+    print("If you hit a ship the point will be marked with a 'O'.\n")
+    print(input("Press 'Enter' / any key to return to menu\n"))
     main_menu()
 
 
@@ -119,7 +119,7 @@ def show_high_scores():
                 for i in data_sorted[0:-1]:
                     space = " " * (13 - len(i[0]))
                     print(space.join(i))
-                print(input("\nPress 'Enter', or any key, to return\n"))
+                print(input("\nPress 'Enter' / any key to return to menu\n"))
                 main_menu()
                 break
             break
