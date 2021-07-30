@@ -19,7 +19,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
 
 ## Lucid Chart for overview of functionality
 
-![Lucid Chart](/assets/images/readme-pictures/navigation-bar.webp)
+![Lucid Chart](/assets/readme-pictures/lucid-chart.webp)
 
 ## Features
 
