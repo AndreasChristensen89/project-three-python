@@ -1,13 +1,10 @@
-add lucidchart for code logic
-
 When installing pip I got the follow error-message:
 WARNING: You are using pip version 21.1.3; however, version 21.2.1 is available.
 You should consider upgrading via the '/home/gitpod/.pyenv/versions/3.8.11/bin/python3 -m pip install --upgrade pip' command.
 
 This has not been installed yet
 
-Link to Google sheet:
-https://docs.google.com/spreadsheets/d/1VDhR8UUuAHAOBzgp_l9Ok1cZ5mcHgM7KnZ9ZBYMuL3M/edit?usp=sharing
+
 
 
 # Battleship
@@ -223,6 +220,7 @@ Before deploying: Every input code field should end with \n due to a quirk in th
 
 The live link can be found here - https://battleship-project.herokuapp.com/
 
+
 ### Create a local clone
 1.	Open GitHub and navigate to repository here (https://github.com/AndreasChristensen89/janken-bossu).
 2.	Click the Code drop-down menu.
@@ -234,7 +232,7 @@ The live link can be found here - https://battleship-project.herokuapp.com/
 6.	Clone of the project is created locally on your machine.
 
 ## Technologies used
-### Icons
+### Python extensions
 I imported the following:
 * from random import randint - randint was to generate random numbers when generating lists of coordinates
 * from operator import itemgetter - itemgetter was used to sort the lists extracted from Google sheet in order to bring lowest values first.
@@ -242,6 +240,43 @@ I imported the following:
 
 ### Hosting and Development
 GitHub was used to host the repository, GitPot was used for development and version control, and Heroku was used to deploy site.
+
+## Setting up API
+Battleship is connected to a Google Sheet. From here players are able to extract data, and after a win they are able to upload data to it.
+
+### How to set up the API
+IMPORTANT: Information below may not be releveant due to possible future updates from Google
+* Create a Google Sheet with your personal Google account
+* Go to Google Cloud Platform: https://console.cloud.google.com/
+* Press "Create new project" -> give it a name -> create -> Select "Select project"
+* Go to Libraries in APIs & Services -> Search for Google Drive -> Enable Google Drive
+* Create credentials -> select Google Drive API -> Select "Application data" -> Select "No" to the question of whether you will use it with Computer Engine etc.
+* Click "Next" -> Add any service name, and press "Create"
+* In role select Basic -> Editor then continue
+* Press "done" without filling in other options
+* Click your Service Account -> keys -> add key -> select JSON and "create" -> file will download
+* Back to libraries - search for Google Sheet -> enable
+* Go to your repository -> add drop your downloaded file -> rename to creds.json
+* In creds.json file copy the client_email without the "" -> in your Google Sheet select "Share", paste in the email, have editor selected, untick "Notify People" -> share
+* Head to gitignore file in repository and add creds.json
+* In the run.py file install 'pip3 install gspread google-auth'
+* After install 'import gspread' in run.py and afterwards 'google.oauth2.service_account import Credentials'
+* Insert following scope underneath:
+    * SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+    * CREDS = Credentials.from_service_account_file('creds.json')
+    SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+    GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+    SHEET = GSPREAD_CLIENT.open('name-of-google-spreadsheet')
+* From here we have access to the file and can access data like this:
+    worksheet = SHEET.worksheet('name_of_worksheet')
+    data = worksheet.get_all_values()
+
+Link to Google sheet:
+https://docs.google.com/spreadsheets/d/1VDhR8UUuAHAOBzgp_l9Ok1cZ5mcHgM7KnZ9ZBYMuL3M/edit?usp=sharing
 
 ## Credits:
 ### Pictures
