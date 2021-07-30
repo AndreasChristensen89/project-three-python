@@ -9,43 +9,28 @@ This has not been installed yet
 Link to Google sheet:
 https://docs.google.com/spreadsheets/d/1VDhR8UUuAHAOBzgp_l9Ok1cZ5mcHgM7KnZ9ZBYMuL3M/edit?usp=sharing
 
-Clear screen issue:
-In my working environment on Gitpod I initially used the os.system('clear') command for clearing the terminal, thus giving a more visually pleasing transitioning. However, this didn't work on Heroku, and the following prints would simply be printed underneath with the 'old' text still visible. I tried different solutions with a function determining the operating system, and then calling the appropriate command:
-
-from os import system, name
-
-define our clear function
-def clear():
-    # for windows
-    if name == 'nt':
-        _ = system('cls')
-    # for mac and linux(here, os.name is 'posix')
-    else:
-        _ = system('clear')
-
-clear()
-
-Also:
-
-import os
-os.system('cls' if os.name == 'nt' else 'clear')
-
-However, it didn't work on the deployed version on Heroku, so instead I replaced the command with a print statement that prints 24 new lines: 
-
-print("\n"*24)
-24 because of the 24 lines on the Heroku display
-
 
 # Battleship
 
 The idea behind this project is to create a single-player game of battleships where the player should be able to play solo against the computer on different difficulties, being able to upload results, and seing other players' results.
 The target group is anyone who enjoys a simple game that is a mix of chance and logic. The game requires a basic grasp of the rules and can be won either with pure luck, or more likely with a bit of strategy. However, the simple layout would be suited for people who are not interested in visual styling and only wants the pure game mechanics. The game has to be played in a terminal and can be played on modern browsers.
 
-The aim of the game is to play sink the ships with as new attempts as possible.
+The aim of the game is to sink the ships with as few attempts as possible.
+
+## Lucid Chart for overview of functionality
+
+![Lucid Chart](/assets/images/readme-pictures/navigation-bar.webp)
 
 ## Features
 
 ### Existing features:
+* __Menu data validation__
+    * Data input in all menus is validated through a function, and in case of fail it prints an error message:
+        * In case of number wrong: "Invaid data: Choice not valid, input must be numbers within range", followed by input field "Press any key to continue"
+        * In case of character input: "Invalid data: invalid literal for int() with base 10: 'CHARACTERS', input must be numbers within rang
+
+![Menu data validation](/assets/images/readme-pictures/navigation-bar.webp)
+
 * __Main menu__
     * The main menu has four print statements that lists the options for the player, followed by an input field that reads: "Enter choice: ".
     * The player can choose between the following (screen is cleared for every choice):
@@ -53,9 +38,7 @@ The aim of the game is to play sink the ships with as new attempts as possible.
         * Rules - prints the objectives of the game and how to play
         * High score - redirects to high score lists
         * Exit game - exits the application
-    * Data is validated through function, and in case of fail it prints an error message:
-        * In case of number wrong: "Invaid data: Choice not valid, input must be numbers within range", followed by input field "Press any key to continue"
-        * In case of character input: "Invalid data: invalid literal for int() with base 10: 'CHARACTERS', input must be numbers within range
+    * Data is validated through function
 
 
 ![Main menu](/assets/images/readme-pictures/navigation-bar.webp)
@@ -79,9 +62,7 @@ The aim of the game is to play sink the ships with as new attempts as possible.
         * 3: Three ships
         * 4: Return to main menu
     * Last is an input field with the text "Enter choice: ". 
-    * Data is validated through function, and in case of fail it prints an error message:
-        * In case of number wrong: "Invaid data: Choice not valid, input must be numbers within range", followed by input field "Press any key to continue"
-        * In case of character input: "Invalid data: invalid literal for int() with base 10: 'CHARACTERS', input must be numbers within range
+    * Data is validated through function
 
 * __High score lists__
     * Each list has a similar appearance
@@ -101,9 +82,7 @@ The aim of the game is to play sink the ships with as new attempts as possible.
         * 2: Two ships
         * 3: Three ships
     * Last is an input field with the text "Enter choice: ". 
-    * Data is validated through function, and in case of fail it prints an error message:
-        * In case of number wrong: "Invaid data: Choice not valid, input must be numbers within range", followed by input field "Press any key to continue"
-        * In case of character input: "Invalid data: invalid literal for int() with base 10: 'CHARACTERS', input must be numbers within range
+    * Data is validated through function
 
 ![Set difficulty](/assets/images/readme-pictures/main-game-screen.webp)
 
@@ -111,186 +90,135 @@ The aim of the game is to play sink the ships with as new attempts as possible.
     * Board is printed, which is eight lists printed out with a " " separating them.
         * Top list represents the columns. First item is blank as this is simply an unused corner, which makes sure the columns are directly over the "coordinates" below.
         * The next seven lists each start with an uppercase letter of the alphabet, which goes one up ("A", "B",..."G") for each list, followed by seven "-" which represents untouched coordinates.
-    * Below are empty lines, then text which tells the player how many attempts there are left.
+    * Below are empty lines, then text which tells the player how many attempts there are left. The number is a variable and will decrease when incorrect guesses are made.
     * In the bottom is an input field "Guess a row and a number: (e.g. C5)"
+    * Data is validated through different function than the menus:
+        * In case of wrong characters/order: "Error: invalid literal for int() with base 10: 's', must be letter and number within range" - new line - "Press any key to continue"
+        * In case of letter/number out of range: "Error: out of bounds, must be letter and number within range" - new line - "Press any key to continue"
+    * If data validated then board and hit count/attempts are updated:
+        * Board will use input-coordinates to find list and index.
+            * If this point exists in ship list then the index will be changed to "O", and then print "You hit the ship".
+                * Hit count will add this coordinate to its list.
+            * If the point doesn't exist the index will change to "X", and then print "You missed the ship"
+                * Attempts variable will decrease by one
+    * If attempts reach 0 the screen is cleared, and game over screen is printed.
+    * If hit count list matches the ship list the screen is cleared and the game is won. Win screen is printed.
 
 ![Game Screen](/assets/images/readme-pictures/losing-screen.webp)
 
 * __Game over screen__
-    * When a draw is registered the computer choice is generated and inserted underneath the player choice. Underneath the computer choice a grey textbox is also generated with the message of "Draw! Try again". The computer choice and player choice elements are animated to bump against each other two times.
-    * The hand-buttons are animated to scale up and down, which stops when a hand is clicked.
-    * The animation signals that the two hands are evenly matched. The message is short and clear and should not easily be misunderstood. Similar to the losing screen, the hand animations signals to player to interact with them to continue.
+    * A simple message of "Game Over" is printed, follwed by an empty line
+    * Below two choices are printed:
+        * 1: Return to the main menu - clears screen and returns to the main menu
+        * 2: Exit - exits the application
+    * In the bottom is an input field "Enter Choice: "
+    * Data is validated through function
 
 ![Game over screen](/assets/images/readme-pictures/draw-screen.webp)
     
 * __Win screen__
-    * Buttons, player choice and go button are removed, and the winning hand choice is shown in an animated element that scales up and down. To the right of the winning hand is the computer losing hand which is animated going back and forth from opacity 1.0 to 0.1. Underneath is a text box with text that declares that you beat the current opponent and tells you to get ready for the next opponent. The current opponent name and name of next opponent are variables and change according to the stage of the game. Under the next box is a green "next opponent" button, which is animated to scale up and down with a slower pace than the winning hand.
-    * The winning hand is animated to scale up and down to signal victory. The other opacity animation solidifies the sensation of victory. The winning message is short and clear, and the green button signals users to click on it via the animation.
+    * A congratulatory message is printed "Congratulations! You sank all the battleships", followed by empty line.
+    * Three choices are printed:
+        * 1: Register your score - redirects to register score
+        * 2: Return to main menu - returns player to main menu with no records of score
+        * 3: Exit game - exits application
+    * Data is validated through function
+    * Screen is cleared after every choice
 
 ![Win screen](/assets/images/readme-pictures/win-screen.webp)
 
 * __Register score__
-    * All previous game elements are removed, and a large black text box is inserted at the top center with the text "Game Over!". This box is animated to scale up and down.
-    * Underneath is a centered grey text box with text that explains that the player lost, and which also encourages the player to try again.
-    * Underneath is a green round button with the text "Try again"
-    * The black color of the game over text is a clear opposite to all previous colors, which are light a bright, which is meant to invoke a negative sensation. The animation is there in order to draw the player's eyes to it. The losing message from the grey box is not harsh but instead reminds the player that this is game of chance "Looks like the odds were against you". It also encourages players to try again. The "try again" button is large and clear, and the green color is meant to give a "go" feeling similar to the play button and the start button.                                                                                                                       
+    * Input field is printed "Enter your name: (Max 10 letters)"
+    * Data is validated, but only for length     
 
 ![Register score](/assets/images/readme-pictures/game-over-screen.webp)
 
 * __Updating high score__
-    * A green centered textbox with the content "You Win!" is at the top. It scales up and down continuously. 
-    * Underneath is a light-blue textbox that declares that the player managed to rise to the top and has won the game.
-    * Underneath is a green button restart button, which is also used in the game over screen.
-    * The scaling of the win title draws the users' eyes to it, which aims to make sure that what is going on is clear. The green color gives a positive feeling. The text-box underneath is in a light color with congratulative text, which is most often expected after winning a game. Lastly, the try again button is similar in style to the one on the gameover screen, but with the text "restart" instead of "try again", which differs in tone.
+    * Screen is cleared and then it prints "Updating highscore list...". Once it the scores have been added it prints "List updated successfully".
+    * It prints options for the player:
+        * 1: Return to main menu - returns to the main menu
+        * 2: Exit - Exits the application
+    * In the bottom is an input field "Enter choice: "
+    * Data is validated through function
 
 ![Updating high score](/assets/images/readme-pictures/victory-screen.webp)
-
-* __See high score__
-    * Dark heading in the center with the text "how to play"
-    * Underneath short introduction of the game in a grey-blue background textbox.
-    * Underneath a green textbox with the title "What beats what?"
-    * Underneath is five boxes side by side. Each has the name of a hand that players can choose, and underneath each is a picture of how the hand looks. Below the picture are two statements about what the hand in question beats in a game.
-    * Below is a title similar in style to "what beats what", with the content "Setting of the game".
-    * Underneath is a larger text box with an explanation of how the game Janken works in Japanese culture. Same color as the boxes further up.
-    * Underneath is another large text box with an explanation of the back-story/setting of the game on this webpage. Same color as above.
-    * There are three main colors - dark at the top, green for h2 titles, and lighter blue/gray for text. They are chosen to fit with the background blue, and the bonsai tree. 
-    * The introduction is valuable as players may not be familiar with the extended version of rock paper scissors.
-    * Explanation of what beats what is valuable as players want to be clear about the rules. The pictures complement well since people may not know all the hand signals, and that they only have the visual representation when playing the game.
-    * Explanation of how rock paper scissors work on Japanese culture is valuable as it adds some context to why a Japanese setting was chosen.
-    * Setting of the game is valuable as it may not be clear to the player in the beginning what the bigger purpose of the game is. Also, it adds a slight humorous twist.
-
-![See high score](/assets/images/readme-pictures/rules.webp)
-
-* __Contact Page__
-    * Dark centered heading with "contact" written. Same style as on rules page.
-    * Underneath is a box with four input fields: First name, Last name, Email Address, and Message. The message field is larger that the other fields.
-    * Below the fields are two green buttons: "clear" and "send". They both individually change to white when hovering over them.
-    * The colors chosen are in line with the other pages.
-    * It is valuable for the player to be able to contact the developers. The setup is simple and straight to the point.
-
-![Contact page](/assets/images/readme-pictures/contact-page.webp)
 
 
 ### Future features to implement
 * Add multiplayer option
 * Multiplayer does not need to be live, but can grab a random set of coordinates given by a player at any moment. Players will know result from lists (Add search function to find outcome)
-* On the game screen the opponent should have stats: Health and HP damage - this would change the game so that a single win would not necesarily be enough to beat the current opponent
-* A 10% chance of a critical hit/power up (e.g., double damage) could be implemented - this would only work if opponent stats are implemented
-* Add potions/special moves: e.g. coffee that boosts health, HR department that works as shield, ability that allow players one more chance to get it right etc.
-* Add weaknesses and strenghts for each opponent
+* Possibility for the player to add ships to play against the computer
+* Possibility for the player to select board size.
 
 ## Testing
-* Chrome Developer Tools was used for testing all media queries down to width 280px to fit the smallest device available on the Google device list.
-Also, Developer Tools was used to manipulate CSS to see direct outcomes. All pages have been tested with chrome developer tools to verify that text, pictures, and boxes all adapt well to the breakpoints for different screens. 
+* Gitpod workspace was used to test functionality for both game and API
+* After deployment, Heroku deployment terminal was used to test functionality for both game and API
+* Data validation was tested with a large number of different input. Letters, characters, lengths, reverse, capital, lowecase.
 
-__Breakpoints are set to the following and are all tested to work:__
-
-* __Max width 800px__
-   * **Start screen:** 
-        * Background-size is changed from contain to cover in order to avoid picture strething with floor too long. X and Y coordinates are set differently to adapt to new setting. 
-        * Margins of the h1 and h2 are changed.
-   * **Introduction screen:** 
-        * P element's width, font-size, and padding are lowered. 
-        * Font-size and width of start button lowered.
-   * **Game screen:** 
-        * Opponent-title's font-size and width lowered.
-        * Margin for buttons changed.
-        * Opponent-picture's height lowered, width increased. Top% increased, right% lowered.
-        * Go-button margin lowered.
-   * **Loosing screen**
-        * Computer hand's margins changed.
-   * **Draw screen** 
-        * The "draw" message's margin is set to 0 auto.
-   * **Win screen**
-        * Player pick's margins changed, width lowered.
-        * Computer losing hand's width lowered, margins changed.
-        * Result text-box's margins lowered.
-        * Next button's margins lowered.
-
-* __Max width 600px__
-   * **Start screen:** 
-        * widths and font-sizes of h1 and h2 are lowered
-        * Width and height of hamburger icon increased. Font-size increased.
-   * **Introduction screen:** 
-        * P element's width and font-size are lowered.
-   * **Game screen:** 
-        * Opponent-title's font-size and width lowered.
-        * Hand-buttons widths increased, margins changed.
-        * Opponent-picture's top% increased. Height lowered, width increased.
-        * Player-choice margins changed.
-        * Restart button's width, height, and font-size increased.
-   * **Loosing screen**
-        * Lose-message's font-size and width are lowered, margins changed.
-        * Computer hand's margins increased.
-   * **Win screen**
-        * Result text-box's margins, line-height, width, font-size lowered, 
-        * Result text-box's margins increased.
-        * Game-area's height lowered
-   * **Victory screen**
-        * Win-title's width and font-size lowered.
-        * Win-text's width and font-size lowered.
-        * Restart button's font-size lowered.
-   * **Game over screen**
-        * Game over title's width and font-size lowered.
-        * Game over text's width and font-size lowered.
-
-* __Max width 320px__
-   * **Game screen:** 
-        * Opponent-title's width lowered.
-        * Hand-buttons height and width lowered, margins changed.
-        * Opponent-picture's top% increased.
-
-* __Max height 400px, Max width 700px - meant for phones in landscape mode__
-    * **Game screen**
-        * Hand-buttons margins changed.
-        * Player-choice margins changed.
-    * **Lose screen**
-        * Lose-message margin lowered, width increased.
-        * Computer hand's margins lowered.
-    * **Win screen**
-        * Player pick margins lowered
-        * Computer losing hand's margin lowered.
-        * Result text-box's margins lowered.
-        * Game-area's height lowered
-    * **Victory screen**
-        * Win-text's width increased, margins lowered.
-    * **Game over screen**
-        * Game over title's width increased.
-        * Game over text's margins lowered, width increased.
+__Breakpoints__
+There are not breakpoints set for this project
 
 
 ### Browser testing 
-* Test on Firefox, no problems detected.
-* Microsoft Edge, no problems detected.
-* Media query tested on my own phone, Samsung Galaxy S9 using Chrome and Firefox, no issues.
+* Test on Firefox, Edge, Chrome, and Safari
+* Tested on my own phone, Samsung Galaxy S9 using Chrome and Firefox, no issues.
 * Media query tested on my own tablet, Ipad pro 2018 11" using Safari+Chrome, no issues.
 * General testing with my own laptop, Asus 13 inch using Chrome, no issues.
 
-All links were tested. There are no external links, but all internal links work. 
+There are no links in this project.
 
 ### Bugs discovered during testing:
-* I found the Google Developer Tool to not be stable in showing if the website responded correctly to different screensizes, particularly the phone settings as my own phone would show a smaller outcome.
-* JShint gave an error (Functions declared within loops referencing an outer scoped variable may lead to confusing semantics. (choice)) regarding a function where a loop sets an eventlistener to trigger a function. This was just a warning, and after consulting with my mentor I was told to let it be. A similar usage is also used in the Love Maths learning project.
-* During the first Jshint testing there were many warnings regarding template literals. This was unnecesarily used by me many times so I corrected them, e.g. "xx = `${variable}`;" would be corrected to xx = variable;
-* As I wanted a game page that didn't allow scrolling I had many issues with setting up the right CSS to have the opponent picture staying on the floor of the background. Initially I set up many breakpoints, however this turned out to be too extensive. In the end I changed the height and width of the elements to correspond to the height of the screen, which worked across devices, and was miles shorter to code. This was only used for the game, for the other pages I resorted to "normal" breakpoints which had set values for each breakpoint.
-* With the game CSS setup it was very difficult to fit it to phones in landscape mode, so I ended up using a different media query section using two inputs; max-height and max-width.
+* I had a number of issues with creating ships as I was initially returning a dictionary with key:value pairs. The problem was that each key had to be different, so letters could not repeat, but they had to when it came to horizontal values, e.g. F2, F3, F4... Due to this, I chose to return a list instead.
+    * In the beginning I wanted to return a list per ship, but I found it much easier to return a single list, which is really just a set of coordinates
+* Clear screen issue: In my working environment on Gitpod I initially used the os.system('clear') command for clearing the terminal, thus giving a more visually pleasing transitioning. However, this didn't work on Heroku, and the next prints would simply be printed underneath with the 'old' text still visible. I tried different solutions with a function determining the operating system, and then calling the appropriate command:
+
+    from os import system, name
+    
+    define our clear function
+    def clear():
+        # for windows
+        if name == 'nt':
+            _ = system('cls')
+        # for mac and linux(here, os.name is 'posix')
+        else:
+            _ = system('clear')
+
+    clear()
+
+Also:
+
+    import os
+    os.system('cls' if os.name == 'nt' else 'clear')c
+
+However, it didn't work on the deployed version on Heroku, so instead I replaced the command with a print statement that prints 24 new lines: 
+    print("\n"*24)
+24 because of the 24 lines on the Heroku display
 
 ### Unfixed bugs
-* "Interest-Cohort Error" on console after deployment. I was not able to fix this error, and I can understand that it's a recent feature where Github blocks FLoC https://www.techradar.com/uk/news/github-is-blocking-floc.
+*
 
 
 ### Validator testing:
-* W3 Markup Validation Service completed for all HTML pages with no errors.
-* Jigsaw test for all CSS files completed with no errors.
-* Jshint completed with one warning, but as described in "bugs discovered during testing" it could be ignored.
+* Python code passed linter PEP8 with no issues. Website: http://pep8online.com/
 
 ## Deployment
-### Deployment to GitHub Pages
+### Deployment to Heroku
+The project was deployed to Heroku
 The site was deployed to GitHub Pages, and goes as follows:
-In the GitHub repository, go to the Settings tab
-From the source section drop-down menu, select the Master Branch
-After selecting the master branch, the page will automatically be refreshed with a ribbon display to indicate the successful deployment.
-The live link can be found here - https://andreaschristensen89.github.io/janken-bossu/
+
+Before deploying: Every input code field should end with \n due to a quirk in the software used to create the mock terminal
+
+* In Gitpod install Pip3 freeze > requirements.txt - this is to install dependencies (for this project: gspread and google-auth), will be listed in the requirements.txt
+* Log in to Heroku and create new app
+* Go to settings -> "Reveal Config Vars": here you should put sensitive data (for this project the json.creds file to connect to the API), as it is not synchonized with Github (in the gitignore file).
+    * In "Key" put in name of file (CREDS), and in "VALUE" copy content of creds.json file. -> press "Add"
+* Select "Add buildpack" below config vars -> click "Python" then save -> add again and select "nodejs" then save. (Python should be first)
+* To to deploy section -> Select "GitHub" -> confirm connection
+* In the bottom search for your repository, use name in GitHub -> search and connect
+* Below you can now deploy, either automatically or manually.
+* Once done press "View" to open deployed project
+
+The live link can be found here - https://battleship-project.herokuapp.com/
 
 ### Create a local clone
 1.	Open GitHub and navigate to repository here (https://github.com/AndreasChristensen89/janken-bossu).
@@ -304,51 +232,54 @@ The live link can be found here - https://andreaschristensen89.github.io/janken-
 
 ## Technologies used
 ### Icons
-Icons and script were taken from https://fontawesome.com/, as well as Google's fonts: https://fonts.google.com/icons?selected=Material+Icons.
+I imported the following:
+* from random import randint - randint was to generate random numbers when generating lists of coordinates
+* from operator import itemgetter - itemgetter was used to sort the lists extracted from Google sheet in order to bring lowest values first.
+* import gspread & from google.oauth2.service_account import Credentials - used for the API setup
 
 ### Hosting and Development
-GitHub was used to host the repository, GitPot was used for development and version control, and GitHub Pages was used to deploy site.
+GitHub was used to host the repository, GitPot was used for development and version control, and Heroku was used to deploy site.
 
 ## Credits:
 ### Pictures
-Images were compressed using the webpage https://tinypng.com/
-Afterwards they were converted to webp using https://cloudconvert.com/png-to-webp
-All characters, hands, and backgrounds were drawn by myself in Adobe Illustrator.
+Images for readme were obtained using Windows snipping tool, size lowered via https://tinypng.com/
+Afterwards they were converted to webp using https://cloudconvert.com/png-to-webp.
 
 
 ### Text content
-Content was all formulated by myself, but I took inspiration from video/board games I have played throughout my life, comic books I have read, as well as my own experiences living in Japan.
+Content was all formulated by myself, as I have played the game many times in my life I didn't need to look up the rules or get inspiration for formulating.
 
 ### Coding help
-* For help with varius issues with animations, css background manipulation etc. I often resorted to https://stackoverflow.com/
-* For help with syntax reminders I often used https://www.w3schools.com/ 
+* For help with varius challenges with Python I often resorted to the Material by Code Institute and https://stackoverflow.com/
+* For help with syntax reminders I often used the material by Code Institute, as well as https://www.w3schools.com/ 
 * For general best practice I used Code Institute's Slack community.
-* For hamburger nagivation I took inspiration from the code from this site, but I changed the location, animation/CSS, names, parts of the JS code, and the contents to fit my site:
-https://dev.to/ljcdev/easy-hamburger-menu-with-js-2do0
-* General comments from family and peers for what CSS looked the best, and what was most intuitive for the JS game design.
 
 ### Design
-* For design of the different pages I didn't use other sources of information. For hand-buttons, parts of the background, and tattoos of one character I took inspiration from https://www.pinterest.com/ - only tattoos are partly copies.
-* No wireframes were used
+* For design of the different pages I didn't use other sources of information, but I did take inspiration from video games I have played throughout my life.
+* Lucidchart was created using https://www.lucidchart.com/pages/
 
 ## User Stories:
 
 ### The User
 * What are the goals for a first-time visitor
    * Quickly understand that this is a game and how to start it
-        * This is indicated by the play button, which is animated to attract attention
-   * Be captivated by the content and the imagery
-        * Bright positive colors are used with contrast
+        * This is indicated by the "Start game" option, also "Enter Choice: " in the bottom tells the player what to do.
+   * Quickly understand where to look
+        * Background is black, and text is white. There are no other distractions.
    * Be able to navigate effortless through the pages
-        * Hamburger navigation is always available, and there are only three pages.
+        * It is always clear what each command does, and there is always the possibility to return to the menu.
    * Easily reach the rules page and understand how to play the game
-        * Navigation is easy, and rules are explained right away.
+        * Navigation is easy, and the rules and objectives are explained right away.
    * Easily understand the goal of the game
-        * Rules are written simple and with visuals to help. Introduction also gives additional help.
-   * Understand how to advance after a loss/defeat/draw
-        * Buttons are set to animate to attract the user
-   * Have the game work on all devices, both horizontally and vertically
-        * The website works on all devices
+        * Rules are written simple and separated into sections for easier readability.
+   * Understand how to make the initial guess in the game
+        * On the game screen there is input text which explains that the player should pick a letter and a number, and gives an example of input.
+   * Understand how to advance after a hit/miss
+        * There is a counter for attempts, which is meant to signal that the game is still ongoing, and the player should therefore continue as before
+    * Understand where to find high scores, and how they are measured
+        * Navigation is clearly displayed, in the high score menu the heading says "Select a list/difficulty to view", which tells the players that high scores are separated by difficulty.
+        * In the high score lists a top remark tells the players "The fewer misses the better", which aims to make the player understand the hierarchy of scores, and explains why the lowest are on top.
+
 * What are the goals for a returning visitor
    * Instantly/easily remember how to navigate the content
         * I estimate this to be intuitive

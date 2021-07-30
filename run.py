@@ -99,7 +99,7 @@ def show_high_scores():
     """
     print("\n"*24)
     while True:
-        print("Select a list to view\n")
+        print("Select a list/difficulty to view\n")
         print("1: One ship")
         print("2: Two ships")
         print("3: Three ships")
@@ -112,6 +112,7 @@ def show_high_scores():
                 break
             else:
                 print("\n"*24)
+                print("The fewer misses the better\n")
                 dif_two = SHEET.worksheet(f'Difficulty {list_choice}')
                 data = dif_two.get_all_values()
                 data_sorted = sorted(data, key=itemgetter(1))
