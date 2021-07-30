@@ -88,7 +88,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
     * Board is printed, which consists of eight lists printed out with a " " separating each item.
         * Top list represents the columns. First item is blank as this is simply an unused corner, which makes sure the following numbers 1-7, or columns, are directly over the "coordinates" below.
         * The next seven lists each start with an uppercase letter of the alphabet, which goes one up ("A", "B",..."G") for each list, followed by seven "-" which represents untouched coordinates.
-    * Below are two empty lines. Underneath comes text which tells the player how many attempts there are left. The number is a variable and will decrease when incorrect guesses are made.
+    * Below is an empty line, followed by a teasing text: "I dare you to pick {random}{random}". The two variables generate a random coordinate that has little chance of being correct. Underneath comes is an empty line and then text which tells the player how many attempts there are left. The number is a variable and will decrease when incorrect guesses are made.
     * In the bottom is an input field "Guess a row and a number: (e.g. C5)"
     * Data is validated through a different function from the menus:
         * In case of wrong characters/order: "Error: invalid literal for int() with base 10: 's', must be letter and number within range" - new line - "Press any key to continue"
@@ -262,16 +262,20 @@ IMPORTANT: Information below may not be releveant due to possible future updates
 * In the run.py file install 'pip3 install gspread google-auth'
 * After install 'import gspread' in run.py and afterwards 'google.oauth2.service_account import Credentials'
 * Insert following scope underneath:
+
     SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
     ]
+
     CREDS = Credentials.from_service_account_file('creds.json')
     SCOPED_CREDS = CREDS.with_scopes(SCOPE)
     GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
     SHEET = GSPREAD_CLIENT.open('name-of-google-spreadsheet')
+
 * From here we have access to the file and can access data like this:
+
     worksheet = SHEET.worksheet('name_of_worksheet')
     data = worksheet.get_all_values()
 
@@ -285,7 +289,7 @@ Afterwards they were converted to webp using https://cloudconvert.com/png-to-web
 
 
 ### Text content
-Content was all formulated by myself, as I have played the game many times in my life I didn't need to look up the rules or get inspiration for formulating.
+Content was all formulated by myself, as I have played the original battleship game many times in my life I didn't need to look up the rules or get inspiration for formulating.
 
 ### Coding help
 * For help with varius challenges with Python I often resorted to the Material by Code Institute and https://stackoverflow.com/
