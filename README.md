@@ -67,7 +67,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
 * __High score lists__
     * Each list has a similar appearance
     * Content is extracted from a Google Sheet and comes out as a list. List runs through function and is printed as desired:
-        * At the top "Name" and "Misses" are printed, separated by spaces to leave room for content below. Next line is empty.
+        * At the top "Name" and "Missed Shots" are printed, separated by spaces to leave room for content below. Next line is empty.
         * Scores are sorted so the fewest misses are printed on top (best result), with the correct name to the left.
         * Names are followed by spacing calculated from the length of the name -> all scores will be printed on the same "column"
     * Below is an input field with the text "Press 'Enter' / any key to return to menu". Player can press enter, or any key + enter to return to main menu.
@@ -77,22 +77,23 @@ The aim of the game is to sink the ships with as few attempts as possible.
 * __Set difficulty__
     * Shows the different difficulty levels the player can choose. Choice is passed through a function that generates ship of random lenght (2-4) and random vertical/horizontal, and passes the coordinates into a list. When the corrent number of ships is in the list it is passed on, and the actual game starts.
     * Heading reads "Set the difficulty", followed by empty line
-    * Three print statements:
-        * 1: One ship
-        * 2: Two ships
-        * 3: Three ships
+    * Four print statements:
+        * 1: One ship - passes 1 to generate ship function
+        * 2: Two ships - passes 2 to generate ship function
+        * 3: Three ships -passes 3 to generate ship function
+        * 4: Return to menu - returns player to menu
     * Last is an input field with the text "Enter choice: ". 
     * Data is validated through function
 
 ![Set difficulty](/assets/images/readme-pictures/main-game-screen.webp)
 
 * __Game screen__
-    * Board is printed, which is eight lists printed out with a " " separating them.
-        * Top list represents the columns. First item is blank as this is simply an unused corner, which makes sure the columns are directly over the "coordinates" below.
+    * Board is printed, which consists of eight lists printed out with a " " separating each item.
+        * Top list represents the columns. First item is blank as this is simply an unused corner, which makes sure the following numbers 1-7, or columns, are directly over the "coordinates" below.
         * The next seven lists each start with an uppercase letter of the alphabet, which goes one up ("A", "B",..."G") for each list, followed by seven "-" which represents untouched coordinates.
-    * Below are empty lines, then text which tells the player how many attempts there are left. The number is a variable and will decrease when incorrect guesses are made.
+    * Below are two empty lines. Underneath comes text which tells the player how many attempts there are left. The number is a variable and will decrease when incorrect guesses are made.
     * In the bottom is an input field "Guess a row and a number: (e.g. C5)"
-    * Data is validated through different function than the menus:
+    * Data is validated through a different function from the menus:
         * In case of wrong characters/order: "Error: invalid literal for int() with base 10: 's', must be letter and number within range" - new line - "Press any key to continue"
         * In case of letter/number out of range: "Error: out of bounds, must be letter and number within range" - new line - "Press any key to continue"
     * If data validated then board and hit count/attempts are updated:
