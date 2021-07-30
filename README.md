@@ -262,12 +262,12 @@ IMPORTANT: Information below may not be releveant due to possible future updates
 * In the run.py file install 'pip3 install gspread google-auth'
 * After install 'import gspread' in run.py and afterwards 'google.oauth2.service_account import Credentials'
 * Insert following scope underneath:
-    * SCOPE = [
+    SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
     ]
-    * CREDS = Credentials.from_service_account_file('creds.json')
+    CREDS = Credentials.from_service_account_file('creds.json')
     SCOPED_CREDS = CREDS.with_scopes(SCOPE)
     GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
     SHEET = GSPREAD_CLIENT.open('name-of-google-spreadsheet')
