@@ -144,7 +144,7 @@ def show_high_scores():
                 for i in data_sorted[0:-1]:
                     space = " " * (13 - len(i[0]))
                     print(space.join(i))
-                print(input("\nPress 'Enter' / any key to return to menu\n"))
+                print(input("\nPress 'Enter' to return to menu\n"))
                 main_menu()
                 break
             break

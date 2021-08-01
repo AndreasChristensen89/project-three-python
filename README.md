@@ -23,7 +23,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
 ### Existing features:
 * __Menu data validation__
     * Data input in all menus is validated through a function, and in case of fail it prints an error message:
-        * In case of number wrong: "Invalid data: Choice not valid, input must be numbers within range", followed by input field "Press any key to continue"
+        * In case of number wrong: "Invalid data: Choice not valid, input must be numbers within range", followed by input field "Press 'Enter' to continue"
         * In case of character input: "Invalid data: invalid literal for int() with base 10: 'CHARACTERS', input must be numbers within rang
 
 ![Menu data validation](/assets/images/readme-pictures/navigation-bar.webp)
