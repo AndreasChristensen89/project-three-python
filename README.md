@@ -24,9 +24,17 @@ The aim of the game is to sink the ships with as few attempts as possible.
 * __Menu data validation__
     * Data input in all menus is validated through a function, and in case of fail it prints an error message:
         * In case of number wrong: "Invalid data: Choice not valid, input must be numbers within range", followed by input field "Press 'Enter' to continue"
-        * In case of character input: "Invalid data: invalid literal for int() with base 10: 'CHARACTERS', input must be numbers within rang
+        * In case of character input: "Invalid data: invalid literal for int() with base 10: 'CHARACTERS', input must be numbers within range"
 
 ![Menu data validation](/assets/readme-pictures/menu-data-validation.webp)
+
+* __Game data validation__
+    * Data input in all menus is validated through a different function, and in case of fail it prints an error message:
+        * In case of number wrong: "Error: invalid input, must be letter and number within range"
+        * In case of character input: "Error: invalid literal for int() with base 10: 'character_typed', must be letter and number within range"
+        * In case of out of range: "Error: out of bounds, must be letter and number within range"
+
+![Game data validation](/assets/readme-pictures/game-screen-error.webp)
 
 * __Main menu__
     * The main menu has four print statements that lists the options for the player, followed by an input field that reads: "Enter choice: ".
@@ -104,9 +112,9 @@ The aim of the game is to sink the ships with as few attempts as possible.
     * If attempts reach 0 the screen is cleared, and game over screen is printed.
     * If hit count list matches the ship list the screen is cleared and the game is won. Win screen is printed.
 
-![Game Screen](/assets/readme-pictures/game-screen-error.webp)
-![Game Screen](/assets/readme-pictures/game-screen-miss.webp)
 ![Game Screen](/assets/readme-pictures/game-screen-start.webp)
+![Game Screen](/assets/readme-pictures/game-screen-miss.webp)
+![Game Screen](/assets/readme-pictures/game-screen-hit.webp)
 
 * __Game over screen__
     * A simple message of "Game Over" is printed, followed by an empty line
