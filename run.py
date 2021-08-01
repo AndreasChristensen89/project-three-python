@@ -166,9 +166,13 @@ def start_game(difficulty_choice):
         board.append([board_rows[x], "-", "-", "-", "-", "-", "-", "-"])
 
     add_board(board)
-    print("")
 
     ship = generate_ships(difficulty_choice)
+
+    dare_letter = chr(randint(ord('A'), ord('G')))
+    dare_number = randint(1, 7)
+    print("")
+    print(f"I dare you to pick {dare_letter}{dare_number}")
 
     ask_for_choices(board, ship, difficulty_choice)
 
@@ -208,6 +212,7 @@ def ask_for_choices(board, ship, difficulty_choice):
                 print("\n"*24)
                 add_board(board)
                 print("This point has already been guessed")
+                print("")
             elif guess.upper() in ship:
                 print("\n"*24)
                 hit_count.append(guess.upper())
@@ -318,10 +323,7 @@ def add_board(board):
     """
     for i in board:
         print(" ".join(i))
-    dare_letter = chr(randint(ord('A'), ord('G')))
-    dare_number = randint(1, 7)
     print("")
-    print(f"I dare you to pick {dare_letter}{dare_number}")
 
 
 def win_game(attempts, difficulty_choice):
