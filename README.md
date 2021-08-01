@@ -144,6 +144,11 @@ The aim of the game is to sink the ships with as few attempts as possible.
 
 ![Updating high score](/assets/readme-pictures/high-score-updated.webp)
 
+* __Exit application__
+    * Screen is cleared and then it prints "ciao"
+
+![Exit application](/assets/readme-pictures/ciao.webp)
+
 
 ### Future features to implement
 * Add multiplayer option
