@@ -86,7 +86,7 @@ def menu_data_validation(choice, num_of_choices):
     except ValueError as e:
         print("\n"*24)
         print(f"Invalid data: {e}, input must be numbers within range")
-        print(input("Press any key to continue\n"))
+        print(input("Press 'Enter' to continue\n"))
         print("\n"*24)
         return False
     return True
