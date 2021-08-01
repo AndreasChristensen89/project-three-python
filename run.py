@@ -168,7 +168,7 @@ def start_game(difficulty_choice):
     add_board(board)
     print("")
 
-    ship = generate_computer_ship(difficulty_choice)
+    ship = generate_ships(difficulty_choice)
 
     ask_for_choices(board, ship, difficulty_choice)
 
@@ -218,56 +218,46 @@ def ask_for_choices(board, ship, difficulty_choice):
                 update_board(board, guess, "X")
 
 
-def generate_computer_ship(number_of_ships):
+def generate_ships(number_of_ships):
     """
     Returns a list with ship coordinates.
     Uses while loops: adds ships of random size and random vertical/horizontal.
-    Calculates max letter and max number for vertical/horizontal ship.
+    Calculates max letter (vertical) and max number (horizontal) using ship
+    length ship to avoid out of bounds.
     Checks new ships with return list to avoid overlaps/duplicate coordinates.
     While loop stops when added ships == number of ships requested
     """
-
-    ship_points = []
+    ship_coordinates = []
 
     ship_count = 0
 
     while True:
         vertical_horizontal = randint(1, 2)
-        if vertical_horizontal == 1:
-            while True:
-                ship_lenght = randint(2, 4)
-                max_letter = chr(ord('H') - ship_lenght)
-                random_row = chr(randint(ord('A'), ord(max_letter)))
-                char_two = str(randint(1, 7))
+        ship_lenght = randint(2, 4)
 
-                vert_ship = []
-                for i in range(ship_lenght):
-                    char_one = chr(ord(random_row) + i)
-                    vert_ship.append(char_one+char_two)
+        max_letter = chr(ord('H') - ship_lenght)
+        random_row = chr(randint(ord('A'), ord(max_letter)))
+        char_two = str(randint(1, 7))
 
-                if not any(item in ship_points for item in vert_ship):
-                    for i in vert_ship:
-                        ship_points.append(i)
-                    ship_count += 1
-                    break
-        elif vertical_horizontal == 2:
-            while True:
-                ship_lenght = randint(2, 4)
-                char_one = chr(randint(ord('A'), ord('G')))
-                hori_col = randint(1, (7-ship_lenght))
+        char_one = chr(randint(ord('A'), ord('G')))
+        random_column = randint(1, (7-ship_lenght))
 
-                hori_ship = []
-                for i in range(ship_lenght):
-                    char_two = str(hori_col + i)
-                    hori_ship.append(char_one+char_two)
-                if not any(item in ship_points for item in hori_ship):
-                    for i in hori_ship:
-                        ship_points.append(i)
-                    ship_count += 1
-                    break
+        add_ship = []
+        for i in range(ship_lenght):
+            if vertical_horizontal == 1:
+                char_one = chr(ord(random_row) + i)
+                add_ship.append(char_one+char_two)
+            elif vertical_horizontal == 2:
+                number_two = str(random_column + i)
+                add_ship.append(char_one+number_two)
+
+        if not any(item in ship_coordinates for item in add_ship):
+            for i in add_ship:
+                ship_coordinates.append(i)
+            ship_count += 1
         if ship_count == number_of_ships:
             break
-    return ship_points
+    return ship_coordinates
 
 
 def validate_data(guess, board):

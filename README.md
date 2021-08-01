@@ -151,6 +151,18 @@ The aim of the game is to sink the ships with as few attempts as possible.
 * Possibility for the player to add ships to play against the computer
 * Possibility for the player to select board size.
 
+## Comments on functions used in game
+
+### generate_ships
+The code is slightly complicated since there is a while loop with an if/elif inside, which both have a while loop with a for loop inside, followed by an if statement.
+
+* __Big while loop__: ends when the final list is approved (the ship count number == number of requested ships)
+    * __if/elif:__ chooses vertical or horizontal ship, which have different calculations
+        * __Inner while loop:__ ends when list is checked for duplicates
+            * __For loop__ Uses provided variables with letter, number, and ship length to add appropriate coordinates, rising either in letter (vertical) or number (horizontal)
+            * __if__ Validates if any of the coordinates the for loop created is already in the main return list
+    * __if__ 
+
 ## Testing
 * Gitpod workspace was used to test functionality for both game and API
 * After deployment, Heroku deployment terminal was used to test functionality for both game and API
