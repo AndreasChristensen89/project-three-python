@@ -46,7 +46,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
     * First section has five lines and explains the objective.
     * Second section has three lines and explains how to play.
     * Third section has three lines and explain the visual presentation and how to understand them, followed by empty line.
-    * Below is an input field with the text "Press 'Enter' / any key to return to menu". Player can press enter, or any key + enter to return to main menu
+    * Below is an input field with the text "Press 'Enter' to return to menu". Player can press enter, or any key + enter to return to main menu
 
 ![Rules](/assets/readme-pictures/rules-page.webp)
 
@@ -65,13 +65,14 @@ The aim of the game is to sink the ships with as few attempts as possible.
 
 * __High score lists__
     * Each list has a similar appearance
+    * At the top is a message that reads "The fewer misses the better" - implemented due to reactions received that at first glance didn't see why lowest scores were on top
     * Content is extracted from a Google Sheet and comes out as a list. List runs through function and is printed as desired:
         * At the top "Name" and "Missed Shots" are printed, separated by spaces to leave room for content below. Next line is empty.
         * Scores are sorted so the fewest misses are printed on top (best result), with the correct name to the left.
         * Names are followed by spacing calculated from the length of the name -> all scores will be printed on the same "column"
     * Below is an input field with the text "Press 'Enter' to return to menu". Player can press enter, or any key + enter to return to main menu.
 
-![High Score lists](/assets/readme-pictures/high-score-lists)
+![High Score lists](/assets/readme-pictures/readme-pictures/high-score-lists.webp)
 
 * __Set difficulty__
     * Shows the different difficulty levels the player can choose. Choice is passed through a function that generates ship of random length (2-4) and random vertical/horizontal and passes the coordinates into a list. When the correct number of ships is in the list it is passed on, and the actual game starts.
@@ -92,9 +93,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
         * The next seven lists each start with an uppercase letter of the alphabet, which goes one up ("A", "B",..."G") for each list, followed by seven "-" which represents untouched coordinates.
     * Below is an empty line, followed by a teasing text: "I dare you to pick {random}{random}". The two variables generate a random coordinate that has little chance of being correct. Underneath comes is an empty line and then text which tells the player how many attempts there are left. The number is a variable and will decrease when incorrect guesses are made.
     * In the bottom is an input field "Guess a row and a number: (e.g., C5)"
-    * Data is validated through a different function from the menus:
-        * In case of wrong characters/order: "Error: invalid literal for int() with base 10: 's', must be letter and number within range" - new line - "Press any key to continue"
-        * In case of letter/number out of range: "Error: out of bounds, must be letter and number within range" - new line - "Press any key to continue"
+    * Data is validated through game data validation.
     * If data is validated then board and hit count/attempts are updated:
         * Board will use input-coordinates to find list and index.
             * If this point exists in ship list, then the index will be changed to "O", and then print "You hit the ship".
