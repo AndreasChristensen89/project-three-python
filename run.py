@@ -35,7 +35,6 @@ def main_menu():
                 break
             elif user_choice == "2":
                 rules()
-                print("\n"*24)
                 break
             elif user_choice == "3":
                 show_high_scores()
@@ -68,7 +67,7 @@ def set_difficulty():
                 break
             else:
                 start_game(int(difficulty_choice))
-            break
+                break
 
 
 def menu_data_validation(choice, num_of_choices):
@@ -350,6 +349,8 @@ def win_game(attempts, difficulty_choice):
                 main_menu()
                 break
             elif choice == "3":
+                print("\n"*24)
+                print("Ciao")
                 break
             break
 
@@ -399,6 +400,8 @@ def end_of_game():
                 main_menu()
                 break
             elif choice == "2":
+                print("\n"*24)
+                print("Ciao")
                 break
             break
 
