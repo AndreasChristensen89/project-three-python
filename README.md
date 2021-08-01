@@ -16,7 +16,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
 
 ## Lucid Chart for overview of functionality
 
-![Lucid Chart](/assets/readme-pictures/lucid-chart.png)
+![Lucid Chart](/assets/readme-pictures/lucid-chart.webp)
 
 ## Features
 
@@ -26,7 +26,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
         * In case of number wrong: "Invalid data: Choice not valid, input must be numbers within range", followed by input field "Press 'Enter' to continue"
         * In case of character input: "Invalid data: invalid literal for int() with base 10: 'CHARACTERS', input must be numbers within rang
 
-![Menu data validation](/assets/readme-pictures/menu-data-validation.png)
+![Menu data validation](/assets/readme-pictures/menu-data-validation.webp)
 
 * __Main menu__
     * The main menu has four print statements that lists the options for the player, followed by an input field that reads: "Enter choice: ".
@@ -38,7 +38,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
     * Data is validated through function
 
 
-![Main menu](/assets/readme-pictures/main-menu.png)
+![Main menu](/assets/readme-pictures/main-menu.webp)
 
 * __Rules__
     * Has 12 print statements that explain the rules and the objective, separated into three sections.
@@ -48,7 +48,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
     * Third section has three lines and explain the visual presentation and how to understand them, followed by empty line.
     * Below is an input field with the text "Press 'Enter' / any key to return to menu". Player can press enter, or any key + enter to return to main menu
 
-![Rules](/assets/readme-pictures/rules-page.png)
+![Rules](/assets/readme-pictures/rules-page.webp)
 
 * __High Score__
     * Shows the player the different lists that are available, they are separated into difficulty. Each choice clears the screen.
@@ -61,7 +61,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
     * Last is an input field with the text "Enter choice: ". 
     * Data is validated through function
 
-![High score](/assets/readme-pictures/high-score.png)
+![High score](/assets/readme-pictures/high-score.webp)
 
 * __High score lists__
     * Each list has a similar appearance
@@ -84,7 +84,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
     * Last is an input field with the text "Enter choice: ". 
     * Data is validated through function
 
-![Set difficulty](/assets/readme-pictures/set-difficulty.png)
+![Set difficulty](/assets/readme-pictures/set-difficulty.webp)
 
 * __Game screen__
     * Board is printed, which consists of eight lists printed out with a " " separating each item.
@@ -104,9 +104,9 @@ The aim of the game is to sink the ships with as few attempts as possible.
     * If attempts reach 0 the screen is cleared, and game over screen is printed.
     * If hit count list matches the ship list the screen is cleared and the game is won. Win screen is printed.
 
-![Game Screen](/assets/readme-pictures/game-screen-error.png)
-![Game Screen](/assets/readme-pictures/game-screen-miss.png)
-![Game Screen](/assets/readme-pictures/game-screen-start.png)
+![Game Screen](/assets/readme-pictures/game-screen-error.webp)
+![Game Screen](/assets/readme-pictures/game-screen-miss.webp)
+![Game Screen](/assets/readme-pictures/game-screen-start.webp)
 
 * __Game over screen__
     * A simple message of "Game Over" is printed, followed by an empty line
@@ -116,7 +116,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
     * In the bottom is an input field "Enter Choice: "
     * Data is validated through function
 
-![Game over screen](/assets/readme-pictures/game-over.png)
+![Game over screen](/assets/readme-pictures/game-over.webp)
     
 * __Win screen__
     * A congratulatory message is printed "Congratulations! You sank all the battleships", followed by empty line.
@@ -127,13 +127,13 @@ The aim of the game is to sink the ships with as few attempts as possible.
     * Data is validated through function
     * Screen is cleared after every choice
 
-![Win screen](/assets/readme-pictures/win-screen.png)
+![Win screen](/assets/readme-pictures/win-screen.webp)
 
 * __Register score__
     * Input field is printed "Enter your name: (Max 10 letters)"
     * Data is validated, but only for length     
 
-![Register score](/assets/readme-pictures/enter-name.png)
+![Register score](/assets/readme-pictures/enter-name.webp)
 
 * __Updating high score__
     * Screen is cleared and then it prints "Updating highscore list...". Once it the scores have been added it prints "List updated successfully".
@@ -143,7 +143,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
     * In the bottom is an input field "Enter choice: "
     * Data is validated through function
 
-![Updating high score](/assets/readme-pictures/high-score-updated.png)
+![Updating high score](/assets/readme-pictures/high-score-updated.webp)
 
 
 ### Future features to implement
