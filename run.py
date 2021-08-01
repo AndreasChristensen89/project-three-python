@@ -221,11 +221,11 @@ def ask_for_choices(board, ship, difficulty_choice):
 def generate_ships(number_of_ships):
     """
     Returns a list with ship coordinates.
-    Uses while loops: adds ships of random size and random vertical/horizontal.
+    Uses while loop: randomizes vertical/horizontal and length.
     Calculates max letter (vertical) and max number (horizontal) using ship
     length ship to avoid out of bounds.
-    Checks new ships with return list to avoid overlaps/duplicate coordinates.
-    While loop stops when added ships == number of ships requested
+    For loop generates coodinates, result checked for duplicates -> +1 count
+    When ship count == requested number of ships -> break loop -> returns list
     """
     ship_coordinates = []
 
