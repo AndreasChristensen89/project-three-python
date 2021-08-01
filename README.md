@@ -151,17 +151,6 @@ The aim of the game is to sink the ships with as few attempts as possible.
 * Possibility for the player to add ships to play against the computer
 * Possibility for the player to select board size.
 
-## Comments on functions used in game
-
-### generate_ships
-The code is slightly complicated since there is a while loop with an if/elif inside, which both have a while loop with a for loop inside, followed by an if statement.
-
-* __Big while loop__: ends when the final list is approved (the ship count number == number of requested ships)
-    * __if/elif:__ chooses vertical or horizontal ship, which have different calculations
-        * __Inner while loop:__ ends when list is checked for duplicates
-            * __For loop__ Uses provided variables with letter, number, and ship length to add appropriate coordinates, rising either in letter (vertical) or number (horizontal)
-            * __if__ Validates if any of the coordinates the for loop created is already in the main return list
-    * __if__ 
 
 ## Testing
 * Gitpod workspace was used to test functionality for both game and API
@@ -257,7 +246,7 @@ I imported the following:
 GitHub was used to host the repository, Gitpod was used for development and version control, and Heroku was used to deploy site.
 
 ## Setting up API
-Battleship is connected to a Google Sheet. From here players can extract data, and after a win they are able to upload data to it.
+Battleship is connected to a personal Google Sheet. From here players can extract data from any of the worksheets, and after a win they are able to upload data to whatever difficulty (worksheet) to chose to play with.
 
 ### How to set up the API
 IMPORTANT: Information below may not be relevant due to possible future updates from Google
@@ -277,22 +266,25 @@ IMPORTANT: Information below may not be relevant due to possible future updates 
 * In the run.py file install 'pip3 install gspread google-auth'
 * After install 'import gspread' in run.py and afterwards 'google.oauth2.service_account import Credentials'
 * Insert following scope underneath:
-
-    SCOPE = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive"
-    ]
-
-    CREDS = Credentials.from_service_account_file('creds.json')
-    SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-    GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-    SHEET = GSPREAD_CLIENT.open('name-of-google-spreadsheet')
+ ```
+SCOPE = [
+"https://www.googleapis.com/auth/spreadsheets",
+"https://www.googleapis.com/auth/drive.file",
+"https://www.googleapis.com/auth/drive"
+]
+ ```
+ ```
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('name-of-google-spreadsheet')
+ ```
 
 * From here we have access to the file and can access data like this:
-
-    worksheet = SHEET.worksheet('name_of_worksheet')
-    data = worksheet.get_all_values()
+ ```
+worksheet = SHEET.worksheet('name_of_worksheet')
+data = worksheet.get_all_values()
+ ```
 
 Link to Google sheet:
 https://docs.google.com/spreadsheets/d/1VDhR8UUuAHAOBzgp_l9Ok1cZ5mcHgM7KnZ9ZBYMuL3M/edit?usp=sharing
