@@ -109,7 +109,7 @@ def rules():
     print("- For example: C4\n")
     print("If you miss the point will be marked with an 'X'.")
     print("If you hit a ship the point will be marked with a 'O'.\n")
-    print(input("Press 'Enter' / any key to return to menu\n"))
+    print(input("Press 'Enter' to return to menu\n"))
     main_menu()
 
 
