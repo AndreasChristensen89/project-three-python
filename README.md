@@ -72,7 +72,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
         * Names are followed by spacing calculated from the length of the name -> all scores will be printed on the same "column"
     * Below is an input field with the text "Press 'Enter' to return to menu". Player can press enter, or any key + enter to return to main menu.
 
-![High Score lists](/assets/readme-pictures/readme-pictures/high-score-lists.webp)
+![High Score lists](/assets/readme-pictures/high-score-lists.webp)
 
 * __Set difficulty__
     * Shows the different difficulty levels the player can choose. Choice is passed through a function that generates ship of random length (2-4) and random vertical/horizontal and passes the coordinates into a list. When the correct number of ships is in the list it is passed on, and the actual game starts.
