@@ -108,7 +108,7 @@ The aim of the game is to sink the ships with as few attempts as possible.
 ![Game screen](/assets/readme-pictures/game-screen-start.webp)
 ![Game screen miss](/assets/readme-pictures/game-screen-miss.webp)
 ![Game screen hit](/assets/readme-pictures/game-screen-hit.webp)
-![Game screen guessed](/assets/readme-pictures/game-screen-hit.webp)
+![Game screen guessed](/assets/readme-pictures/game-screen-guessed.webp)
 
 * __Game over screen__
     * A simple message of "Game Over" is printed, followed by an empty line
