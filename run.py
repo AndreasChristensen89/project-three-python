@@ -151,16 +151,15 @@ def show_high_scores():
 
 def start_game(difficulty_choice):
     """
-    Construct board, append initial number-list, 1st is blank for corner value.
+    Construct board with initial number-list, 1st is blank for corner value.
     For loop to append lists that take increasing letters as first index(rows).
     Board is passed and printed via add_board().
     Ship-generator called, difficulty level passed to know number of ships.
     Ask_for_choices() is called, board and ships generated are passed.
     """
     print("\n"*24)
-    board = []
+    board = [[' ', '1', '2', '3', '4', '5', '6', '7']]
     board_rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-    board.append([' ', '1', '2', '3', '4', '5', '6', '7'])
     for x in range(0, 7):
         board.append([board_rows[x], "-", "-", "-", "-", "-", "-", "-"])
 
@@ -183,22 +182,23 @@ def ask_for_choices(board, ship, difficulty_choice):
     if hit count == ship list then win.
     Asks for input, validates data via validate_data(), checks for outcome.
     Right guess updates board with 'O', wrong with 'X', error if repeat guess.
+    Checks if coordinate is repeated guess and prints message in case
     """
-    attempts = 10
+    attempts_left = 10
 
     hit_count = []
 
     while True:
-        if attempts == 0:
+        if attempts_left == 0:
             print("\n"*24)
             print("Game Over\n")
             end_of_game()
             break
         elif sorted(hit_count) == sorted(ship):
             print("\n"*24)
-            win_game(attempts, difficulty_choice)
+            win_game(attempts_left, difficulty_choice)
             break
-        print(f"Attempts left: {attempts}")
+        print(f"Attempts left: {attempts_left}")
 
         guess = input("Guess a row and a number: (e.g. C5) \n")
 
@@ -210,15 +210,15 @@ def ask_for_choices(board, ship, difficulty_choice):
             if coordinate == "X" or coordinate == "O":
                 print("\n"*24)
                 add_board(board)
-                print("This point has already been guessed")
                 print("")
+                print("This point has already been guessed")
             elif guess.upper() in ship:
                 print("\n"*24)
                 hit_count.append(guess.upper())
                 update_board(board, guess, "O")
             else:
                 print("\n"*24)
-                attempts -= 1
+                attempts_left -= 1
                 update_board(board, guess, "X")
 
 
@@ -318,7 +318,6 @@ def add_board(board):
     For loop prints out all items in list separated by " " using join().
     Board not defined here in order to be able to reprint current board,
     which is printed after error messages.
-    A dare message is printed which generates random coordinate.
     """
     for i in board:
         print(" ".join(i))
@@ -330,7 +329,7 @@ def win_game(attempts, difficulty_choice):
     Gives user three choices; register score, main menu, or exit.
     Validates input.
     Register - calls register_high_score, passes difficulty and attempts used
-    Return calls main_menu, and exit ends application
+    Return calls main_menu(), and exit ends application
     """
     while True:
         print("Congratulations! You sank all the battleships\n")
@@ -373,8 +372,9 @@ def register_high_score(attempts, difficulty_choice):
 
 def update_high_score(name, attempts, difficulty_choice):
     """
-    Accesses specific worksheet by using difficulty choice
-    Updates worksheet by creating list to add to new row with the parameters
+    Creates list to append with name provided and calculated missed shots.
+    Accesses specific worksheet by using difficulty choice.
+    Updates worksheet, prints statement when done.
     """
     print("Updating high score list...")
     list_to_append = [name, 10-attempts]
@@ -386,7 +386,7 @@ def update_high_score(name, attempts, difficulty_choice):
 
 def end_of_game():
     """
-    Gives users two options, validates data.
+    Gives users two options and validates data.
     1: main_menu - 2: exit
     """
     while True:
