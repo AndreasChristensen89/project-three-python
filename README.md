@@ -100,6 +100,8 @@ The aim of the game is to sink the ships with as few attempts as possible.
                 * Hit count will add this coordinate to its list.
             * If the point doesn't exist the index will change to "X", and then print "You missed the ship"
                 * Attempts variable will decrease by one
+            * If the point has already been guessed a message will print "Point has already been guessed"
+                * No changes will be applied
     * If attempts reach 0 the screen is cleared, and game over screen is printed.
     * If hit count list matches the ship list the screen is cleared and the game is won. Win screen is printed.
 
