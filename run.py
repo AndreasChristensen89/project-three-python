@@ -155,7 +155,7 @@ def start_game(difficulty_choice):
     For loop to append lists that take increasing letters as first index(rows).
     Board is passed and printed via add_board().
     Ship-generator called, difficulty level passed to know number of ships.
-    Ask_for_choices() is called, board and ships generated are passed.
+    make_choice() is called, board and ships generated are passed.
     """
     print("\n"*24)
     board = [[' ', '1', '2', '3', '4', '5', '6', '7']]
@@ -172,10 +172,10 @@ def start_game(difficulty_choice):
     print("")
     print(f"I dare you to pick {dare_letter}{dare_number}")
 
-    ask_for_choices(board, ship, difficulty_choice)
+    make_choice(board, ship, difficulty_choice)
 
 
-def ask_for_choices(board, ship, difficulty_choice):
+def make_choice(board, ship, difficulty_choice):
     """
     Attempts variable is created, decreases with loss and gameover if 0.
     Hit count list is created, right guesses (coordinates) are added.
